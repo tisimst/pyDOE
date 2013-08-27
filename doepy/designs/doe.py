@@ -1,6 +1,6 @@
 """
 ================================================================================
-pyDOE: The experimental design package for python
+doepy: Design of experiments for python
 ================================================================================
 
 Author: Abraham Lee
