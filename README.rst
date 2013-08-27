@@ -36,6 +36,7 @@ License
 -------
 
 This package is provided under two licenses:
+
 1. The *BSD License*
 2. Any other that the author approves (just ask!)
 
