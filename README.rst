@@ -25,6 +25,11 @@ The following are *in the works*, so stay tuned!
 #. Incomplete block designs (blocked and unblocked)
 #. D-Optimal designs
 
+Requirements
+------------
+
+- NumPy
+
 Contact
 -------
 

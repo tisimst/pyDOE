@@ -14,6 +14,7 @@ setup(
     license='BSD License',
     long_description=read('README.rst'),
     packages=['pyDOE', 'pyDOE.designs'],
+    install_requires=['numpy'],
     keywords=[
         'DOE',
         'design of experiments',
