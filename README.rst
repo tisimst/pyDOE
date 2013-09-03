@@ -1,9 +1,8 @@
 ================================================================================
-``doepy``: The experimental design package for python
+``pyDOE``: The experimental design package for python
 ================================================================================
 
-The ``doepy`` package (pronounced, "Dopey", like the one from 
-*Snow White and the Seven Dwarfs)* is designed to help the 
+The ``pyDOE`` package is designed to help the 
 **scientist, engineer, statistician,** etc., to construct appropriate 
 **experimental designs**.
 

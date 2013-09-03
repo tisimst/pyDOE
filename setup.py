@@ -5,15 +5,15 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name='doepy',
+    name='pyDOE',
     version='0.1 alpha',
     author='Abraham Lee',
     author_email='tisimst@gmail.com',
     description='Design of experiments for Python',
-    url='https://github.com/tisimst/doepy',
+    url='https://github.com/tisimst/pyDOE',
     license='BSD License',
     long_description=read('README.rst'),
-    packages=['doepy', 'doepy.designs'],
+    packages=['pyDOE', 'pyDOE.designs'],
     keywords=[
         'DOE',
         'design of experiments',
