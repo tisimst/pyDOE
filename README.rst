@@ -155,7 +155,7 @@ References
 - `Central composite designs`_
 
 
-.. _author: Abraham Lee
+.. _author: mailto:tisimst@gmail.com
 .. _Factorial designs: http://en.wikipedia.org/wiki/Factorial_experiment
 .. _Box-Behnken designs: http://en.wikipedia.org/wiki/Box-Behnken_design
 .. _Central composite designs: http://en.wikipedia.org/wiki/Central_composite_design
