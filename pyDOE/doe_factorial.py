@@ -1,6 +1,6 @@
 import numpy as np
 
-def genfact(levels):
+def fullfact(levels):
     """
     Create a general full-factorial design
     
@@ -19,7 +19,7 @@ def genfact(levels):
     -------
     ::
     
-        >>> genfact([2, 4, 3])
+        >>> fullfact([2, 4, 3])
         array([[ 1.,  1.,  1.],
                [ 2.,  1.,  1.],
                [ 1.,  2.,  1.],
@@ -56,7 +56,7 @@ def genfact(levels):
         range_repeat /= levels[i]
         lvl = []
         for j in xrange(levels[i]):
-            lvl += [j+1]*level_repeat
+            lvl += [j]*level_repeat
         rng = lvl*range_repeat
         level_repeat *= levels[i]
         H[:, i] = rng
@@ -92,8 +92,8 @@ def ff2n(n):
                [ 1.,  1.,  1.]])
     
     """
-    H = genfact([2]*n)
-    H[H==1] = -1
-    H[H==2] = 1
+    H = fullfact([2]*n)
+    H[H==0] = -1
+    H[H==1] = 1
     
     return H

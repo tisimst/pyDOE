@@ -87,7 +87,7 @@ def ccdesign(n, center=1, face='circumscribed'):
     elif face.lower() in ('faced', 'ccf'):
         alpha = 1
     else:
-        raise Exception, 'Invalid input face: {:}'.format(face)
+        raise Exception, 'Invalid input for "face": {:}'.format(face)
         
     H = union(H1, alpha*H2)
     H = np.c_[H.T, repeat_center(nb_var, center).T].T
