@@ -13,7 +13,7 @@ setup(
     url='https://github.com/tisimst/pyDOE',
     license='BSD License',
     long_description=read('README.rst'),
-    packages=['pyDOE', 'pyDOE.designs'],
+    packages=['pyDOE'],
     install_requires=['numpy'],
     keywords=[
         'DOE',
