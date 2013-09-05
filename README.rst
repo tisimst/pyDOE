@@ -1,6 +1,6 @@
-================================================================================
+=====================================================
 ``pyDOE``: The experimental design package for python
-================================================================================
+=====================================================
 
 The ``pyDOE`` package is designed to help the 
 **scientist, engineer, statistician,** etc., to construct appropriate 
@@ -12,18 +12,18 @@ Capabilities
 The package currently includes functions for creating designs for any number of
 factors:
 
-#. **2-level full-factorial**
-#. **Generic full-factorial**
-#. **Box-Behnken**
-#. **Central-Composite**
+1. **2-level full-factorial**
+2. **Generic full-factorial**
+3. **Box-Behnken**
+4. **Central-Composite**
 
 The following are *in the works* (probably), so stay tuned!
    
-#. Plackett-Burman designs
-#. Fractional-factorial designs
-#. Split-plot designs (blocked and unblocked)
-#. Incomplete block designs (blocked and unblocked)
-#. D-Optimal designs
+1. Plackett-Burman designs
+2. Fractional-factorial designs
+3. Split-plot designs
+4. Incomplete block designs
+5. D-Optimal designs
 
 Requirements
 ------------
@@ -37,7 +37,7 @@ The main import::
 
     >>> from pyDOE import *
     
-*2-Level full-factorial* designs only require the **number of factors**::
+2-Level full-factorial designs (``ff2n``) only require the **number of factors**::
 
     >>> ff2n(3)
     array([[-1., -1., -1.],
@@ -49,7 +49,7 @@ The main import::
            [-1.,  1.,  1.],
            [ 1.,  1.,  1.]])
     
-*General full-factorial* designs require an **array of integers**, one 
+General full-factorial designs (``fullfact``) require an **array of integers**, one 
 integer for each factor, where the integer value is the number of levels 
 for that factor::
 
@@ -79,9 +79,10 @@ for that factor::
            [ 0.,  3.,  2.],
            [ 1.,  3.,  2.]])
        
-*Box-Behnken* designs require the **number of factors** and **optional 
-number of center points** (*NOTE: the number of center points is not 
-automatically calculated! It needs to be given explicitly*, default = 1)::
+Box-Behnken designs (``bbdesign``) require the **number of factors** and 
+**optional number of center points** 
+(*NOTE: the number of center points is not automatically calculated!*
+*It needs to be given explicitly*, default = 1)::
 
     >>> bbdesign(3, center=5)
     array([[-1., -1.,  0.],
@@ -102,13 +103,13 @@ automatically calculated! It needs to be given explicitly*, default = 1)::
            [ 0.,  0.,  0.],
            [ 0.,  0.,  0.]])
     
-*Central-Composite* designs require the **number of factors**, an optional
+Central-Composite designs (``ccdesign``) require the **number of factors**, an optional
 **number of center points**, and an optional **type description** (i.e.
 ``face=...`` which can be one of:
 
-#. "circumscribed" or "ccc" (default)
-#. "faced" or "ccf"
-#. "inscribed" or "cci" 
+1. "circumscribed" or "ccc" (default)
+2. "faced" or "ccf"
+3. "inscribed" or "cci" 
 
 (*Note: the alpha value for the star points is automatically calculated*)::
 
@@ -158,4 +159,3 @@ References
 .. _Factorial designs: http://en.wikipedia.org/wiki/Factorial_experiment
 .. _Box-Behnken designs: http://en.wikipedia.org/wiki/Box-Behnken_design
 .. _Central composite designs: http://en.wikipedia.org/wiki/Central_composite_design
- 
