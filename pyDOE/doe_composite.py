@@ -4,7 +4,7 @@ from doe_star import star
 from doe_union import union
 from doe_repeat_center import repeat_center
 
-def ccdesign(n, center=1, face='circumscribed'):
+def ccdesign(n, center=(4, 4), alpha='orthogonal', face='circumscribed'):
     """
     Central composite design
     
@@ -15,8 +15,17 @@ def ccdesign(n, center=1, face='circumscribed'):
     
     Optional
     --------
-    center : int
-        The number of center points (default: 0)
+    center : int array
+        A 1-by-2 array of integers, the number of center points in each block
+        of the design. (Default: (4, 4)).
+    alpha : str
+        A string describing the effect of alpha has on the variance. ``alpha``
+        can take on the following values:
+        
+        1. 'orthogonal' or 'o' (Default)
+        
+        2. 'rotatable' or 'r'
+        
     face : str
         The relation between the start points and the corner (factorial) points.
         There are three options for this input:
@@ -39,15 +48,17 @@ def ccdesign(n, center=1, face='circumscribed'):
            This design also requires 5 levels of each factor.
         
         3. 'faced' or 'ccf': In this design, the star points are at the center
-           of each face of the factorial space, so ``alpha`` = +/-1. This 
+           of each face of the factorial space, so ``alpha`` = 1. This 
            variety requires 3 levels of each factor. Augmenting an existing 
            factorial or resolution V design with appropriate star points can 
            also produce this design.
     
-        Note 1: The value for ``alpha`` is automatically calculated to maintain 
-        rotatability.
-        
-        Note 2: Fractional factorial designs are not (yet) available here.
+    Notes
+    -----
+    - Fractional factorial designs are not (yet) available here.
+    - 'ccc' and 'cci' can be rotatable design, but 'ccf' cannot.
+    - If ``face`` is specified, while ``alpha`` is not, then the default value
+      of ``alpha`` is 'orthogonal'.
         
     Returns
     -------
@@ -59,36 +70,51 @@ def ccdesign(n, center=1, face='circumscribed'):
     ::
     
         >>> ccdesign(3)
-        array([[-1.        , -1.        , -1.        ],
-               [ 1.        , -1.        , -1.        ],
-               [-1.        ,  1.        , -1.        ],
-               [ 1.        ,  1.        , -1.        ],
-               [-1.        , -1.        ,  1.        ],
-               [ 1.        , -1.        ,  1.        ],
-               [-1.        ,  1.        ,  1.        ],
-               [ 1.        ,  1.        ,  1.        ],
-               [-1.68179283,  0.        ,  0.        ],
-               [ 1.68179283,  0.        ,  0.        ],
-               [ 0.        , -1.68179283,  0.        ],
-               [ 0.        ,  1.68179283,  0.        ],
-               [ 0.        ,  0.        , -1.68179283],
-               [ 0.        ,  0.        ,  1.68179283],
-               [ 0.        ,  0.        ,  0.        ]])
        
     """
-    H1 = ff2n(n)
-    H2 = star(n)
+    # Check inputs
+    assert isinstance(n, int) and n>1, '"n" must be an integer greater than 1.'
+    assert alpha.lower() in ('orthogonal', 'o', 'rotatable', 
+        'r'), 'Invalid value for "alpha": {:}'.format(alpha)
+    assert face.lower() in ('circumscribed', 'ccc', 'inscribed', 'cci',
+        'faced', 'ccf'), 'Invalid value for "face": {:}'.format(face)
     
-    if face.lower() in ('circumscribed', 'ccc'):
-        alpha = (H1.shape[0])**0.25
-    elif face.lower() in ('inscribed', 'cci'):
-        alpha = 1
-        H1 /= (H1.shape[0])**0.25
-    elif face.lower() in ('faced', 'ccf'):
-        alpha = 1
+    try:
+        nc = len(center)
+    except:
+        raise TypeError, 'Invalid value for "center": {:}. Expected a 1-by-2 array.'.format(center)
     else:
-        raise Exception, 'Invalid input for "face": {:}'.format(face)
-        
-    H = union(H1, alpha*H2)
-    H = np.c_[H.T, repeat_center(nb_var, center).T].T
+        if nc!=2:
+            raise ValueError, 'Invalid number of values for "center" (expected 2, but got {:})'.format(nc)
+
+    # Orthogonal Design
+    if alpha.lower() in ('orthogonal', 'o'):
+        H2, a = star(n, alpha='orthogonal', center=center)
+    
+    # Rotatable Design
+    if alpha.lower() in ('rotatable', 'r'):
+        H2, a = star(n, alpha='rotatable')
+    
+    # Inscribed CCD
+    if face.lower() in ('inscribed', 'cci'):
+        H1 = 2*ff2n(n) - 1
+        H1 = H1/a  # Scale down the factorial points
+        H2, a = star(n)
+    
+    # Faced CCD
+    if face.lower() in ('faced', 'ccf'):
+        H2, a = star(n)  # Value of alpha is always 1 in Faced CCD
+        H1 = 2*ff2n(n) - 1
+    
+    # Circumscribed CCD
+    if face.lower() in ('circumscribed', 'ccc'):
+        H1 = 2*ff2n(n) - 1
+    
+    C1 = repeat_center(n, center[0])
+    C2 = repeat_center(n, center[1])
+
+    H1 = union(H1, C1)
+    H2 = union(H2, C2)
+    H = union(H1, H2)
+
     return H
