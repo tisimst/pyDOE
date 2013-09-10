@@ -13,3 +13,4 @@ __version__ = '0.1'
 from doe_box_behnken import *
 from doe_composite import *
 from doe_factorial import *
+from doe_lhs import *
