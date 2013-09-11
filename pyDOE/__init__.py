@@ -15,4 +15,4 @@ from doe_composite import *
 from doe_factorial import *
 from doe_lhs import *
 from doe_fold import *
-from doe_plackett_burnam import *
+from doe_plackett_burman import *
