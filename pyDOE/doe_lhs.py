@@ -1,6 +1,6 @@
 import numpy as np
 
-def lhs(n, x_min, x_max, samples=None, randomize=False):
+def lhs(n, samples=None, randomize=False):
     """
     Generate a latin-hypercube design
     
@@ -8,39 +8,60 @@ def lhs(n, x_min, x_max, samples=None, randomize=False):
     ----------
     n : int
         The number of factors to generate samples for
-    xmin : array
-        The lower bounds to scale the samples to, one for each factor.
-    xmax : array
-        The upper bounds to scale the samples to, one for each factor.
     
     Optional
     --------
     samples : int
         The number of samples to generate for each factor (Default: n)
     randomize : bool
-        If True, the samples will be slightly perturbed, such that the final
-        set of samples are no longer equally spaced, but still evenly sampled.
+        If True, the samples will be slightly perturbed within the respective
+        intervals, such that the final set of samples are no longer equally spaced, but still uniformly sampled.
         If False, the samples will be equally spaced as well.
     
+    Returns
+    -------
+    H : 2d-array
+        An n-by-samples design matrix that has been normalized so factor values
+        are uniformly spaced between zero and one.
+    
+    Example
+    -------
+    A 3-factor design (defaults to 3 samples)::
+    
+        >>> lhs(3)
+        array([[ 0.16666667,  0.5       ,  0.83333333],
+               [ 0.5       ,  0.83333333,  0.16666667],
+               [ 0.83333333,  0.16666667,  0.5       ]])
+    
+    A 4-factor design with 6 samples::
+    
+        >>> lhs(4, samples=6)
+        array([[ 0.08333333,  0.25      ,  0.75      ,  0.08333333],
+               [ 0.25      ,  0.75      ,  0.08333333,  0.25      ],
+               [ 0.91666667,  0.58333333,  0.25      ,  0.75      ],
+               [ 0.58333333,  0.41666667,  0.91666667,  0.58333333],
+               [ 0.75      ,  0.91666667,  0.41666667,  0.41666667],
+               [ 0.41666667,  0.08333333,  0.58333333,  0.91666667]])
+    
+    A 2-factor design with 5 randomly perturbed samples::
+    
+        >>> lhs(2, samples=5, randomize=True)
+        array([[ 0.82876253,  0.19000096],
+               [ 0.39620898,  0.63175758],
+               [ 0.01212062,  0.51822857],
+               [ 0.69460061,  0.37600065],
+               [ 0.47163116,  0.84052841]])
+    
     """
-    
-    assert x_min<x_max, 'x_min < x_max are required parameters'
-    
     if samples is None:
         samples = n
     
-    #if mixiter is None:
-        #mixiter = 3*samples
+    # generate the intervals
+    sequence = np.arange(samples + 1)
     
-    sequence = range(samples)
-    #Aux = sequence
-    #for i in xrange(int(np.ceil(samples/n))):
-        #Aux += sequence
-    
-    #sequence = Aux[:samples]
     lhs_matrix = np.zeros((samples, n))
     for i in xrange(n):
-        lhs_matrix[:, i] = sequence
+        lhs_matrix[:, i] = sequence[:-1] + 0.5
     
     for i in xrange(samples):
         for j in xrange(n):
@@ -54,13 +75,6 @@ def lhs(n, x_min, x_max, samples=None, randomize=False):
         for i in xrange(samples):
             for j in xrange(n):
                 offset = np.random.rand() - 0.5
-                lhs_matrix[i, j] = lhs_matrix[i, j] + offset - 1
+                lhs_matrix[i, j] = lhs_matrix[i, j] + offset
         
-    for i in xrange(lhs_matrix.shape[1]):
-        Min = np.min(lhs_matrix[:, i])
-        Max = np.max(lhs_matrix[:, i])
-        for j in xrange(lhs_matrix.shape[0]):
-            lhs_matrix[j, i] = (lhs_matrix[j, i] - Min)/(Max - Min)
-            lhs_matrix[j, i] = (x_max[i] - x_min[i])*lhs_matrix[j, i] + x_min[i]
-    
-    return lhs_matrix
+    return lhs_matrix/samples
