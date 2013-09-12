@@ -71,12 +71,14 @@ columns. The design ends up looking like this::
            [ 1.,  1.,  1.]])
 
 Fractional factorial designs are usually specified using the notation 
-:math:`2^{k-p}`, where k is the number of columns and p is the number of effects
-that are confounded. This is also known as a *Resolution (k-p+1)* design.
-Thus, the above design would be considered a :math:`2^{3-1}` fractional 
-factorial design, a 1/2-fraction design, or a *Resolution III* design. 
-Another common design is a Resolution III, :math:`2^{7-4}` fractional factorial 
-and would be created using the following string generator::
+:math:`2^{k-p}`, where k is the number of columns and p is the number 
+of effects that are confounded. This is also known as a 
+*Resolution (k-p+1)* design. In terms of *resolution* level, higher is
+"better". The above design would be considered a :math:`2^{3-1}` 
+fractional factorial design, a 1/2-fraction design, or a *Resolution III*
+design. Another common design is a Resolution III, :math:`2^{7-4}` 
+fractional factorial and would be created using the following string 
+generator::
 
     >>> fracfact('a b c ab ac bc abc')
     array([[ 0.,  0.,  0.,  1.,  1.,  1.,  0.],
