@@ -9,135 +9,38 @@ The ``pyDOE`` package is designed to help the
 Capabilities
 ------------
 
-The package currently includes functions for creating designs for any number of
-factors:
+The package currently includes functions for creating designs for any 
+number* of factors:
 
-1. **2-level full-factorial**
-2. **Generic full-factorial**
-3. **Box-Behnken**
-4. **Central-Composite**
+- *Factorial Designs*
+  #. **2-level Full-Factorial** (``ff2n``)
+  #. **Generic Full-Factorial** (``fullfact``)
+  #. **2-level Fractional Factorial** (``fracfact``)
+  #. **Plackett-Burman** (``pbdesign``)
+- *Response-Surface Designs* 
+  #. **Box-Behnken** (``bbdesign``)
+  #. **Central-Composite** (``ccdesign``)
+
+(* Plackett-Burman designs require the number of factors to be a multiple
+of 4.)
 
 The following are *in the works* (probably), so stay tuned!
    
-1. Plackett-Burman designs
-2. Fractional-factorial designs
-3. Split-plot designs
-4. Incomplete block designs
-5. D-Optimal designs
+#. Split-plot designs
+#. Incomplete block designs
+#. D-Optimal designs
 
 Requirements
 ------------
 
 - NumPy
-
-Basic Examples
---------------
-
-The main import::
-
-    >>> from pyDOE import *
-    
-2-Level full-factorial designs (``ff2n``) only require the **number of factors**::
-
-    >>> ff2n(3)
-    array([[-1., -1., -1.],
-           [ 1., -1., -1.],
-           [-1.,  1., -1.],
-           [ 1.,  1., -1.],
-           [-1., -1.,  1.],
-           [ 1., -1.,  1.],
-           [-1.,  1.,  1.],
-           [ 1.,  1.,  1.]])
-    
-General full-factorial designs (``fullfact``) require an **array of integers**, one 
-integer for each factor, where the integer value is the number of levels 
-for that factor::
-
-    >>> fullfact([2, 4, 3])
-    array([[ 0.,  0.,  0.],
-           [ 1.,  0.,  0.],
-           [ 0.,  1.,  0.],
-           [ 1.,  1.,  0.],
-           [ 0.,  2.,  0.],
-           [ 1.,  2.,  0.],
-           [ 0.,  3.,  0.],
-           [ 1.,  3.,  0.],
-           [ 0.,  0.,  1.],
-           [ 1.,  0.,  1.],
-           [ 0.,  1.,  1.],
-           [ 1.,  1.,  1.],
-           [ 0.,  2.,  1.],
-           [ 1.,  2.,  1.],
-           [ 0.,  3.,  1.],
-           [ 1.,  3.,  1.],
-           [ 0.,  0.,  2.],
-           [ 1.,  0.,  2.],
-           [ 0.,  1.,  2.],
-           [ 1.,  1.,  2.],
-           [ 0.,  2.,  2.],
-           [ 1.,  2.,  2.],
-           [ 0.,  3.,  2.],
-           [ 1.,  3.,  2.]])
-       
-Box-Behnken designs (``bbdesign``) require the **number of factors** and 
-**optional number of center points** 
-(*NOTE: the number of center points is not automatically calculated!*
-*It needs to be given explicitly*, default = 1)::
-
-    >>> bbdesign(3, center=5)
-    array([[-1., -1.,  0.],
-           [ 1., -1.,  0.],
-           [-1.,  1.,  0.],
-           [ 1.,  1.,  0.],
-           [-1.,  0., -1.],
-           [ 1.,  0., -1.],
-           [-1.,  0.,  1.],
-           [ 1.,  0.,  1.],
-           [ 0., -1., -1.],
-           [ 0.,  1., -1.],
-           [ 0., -1.,  1.],
-           [ 0.,  1.,  1.],
-           [ 0.,  0.,  0.],
-           [ 0.,  0.,  0.],
-           [ 0.,  0.,  0.],
-           [ 0.,  0.,  0.],
-           [ 0.,  0.,  0.]])
-    
-Central-Composite designs (``ccdesign``) require the **number of factors**, an optional
-**number of center points**, and an optional **type description** (i.e.
-``face=...`` which can be one of:
-
-1. "circumscribed" or "ccc" (default)
-2. "faced" or "ccf"
-3. "inscribed" or "cci" 
-
-(*Note: the alpha value for the star points is automatically calculated*)::
-
-    >>> ccdesign(3, face='ccc', center=4)
-    array([[-1.        , -1.        , -1.        ],
-           [ 1.        , -1.        , -1.        ],
-           [-1.        ,  1.        , -1.        ],
-           [ 1.        ,  1.        , -1.        ],
-           [-1.        , -1.        ,  1.        ],
-           [ 1.        , -1.        ,  1.        ],
-           [-1.        ,  1.        ,  1.        ],
-           [ 1.        ,  1.        ,  1.        ],
-           [-1.68179283,  0.        ,  0.        ],
-           [ 1.68179283,  0.        ,  0.        ],
-           [ 0.        , -1.68179283,  0.        ],
-           [ 0.        ,  1.68179283,  0.        ],
-           [ 0.        ,  0.        , -1.68179283],
-           [ 0.        ,  0.        ,  1.68179283],
-           [ 0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ]])
+- SciPy
 
 Contact
 -------
 
-Any feedback, questions, bug reports, or words of encouragement can
-be sent to the `author`_.
+Any feedback, questions, bug reports, or success stores should
+be sent to the `author`_. I'd love to hear from you!
 
 License
 -------
@@ -153,9 +56,11 @@ References
 - `Factorial designs`_
 - `Box-Behnken designs`_
 - `Central composite designs`_
-
+- `Plackett-Burman designs`_
 
 .. _author: mailto:tisimst@gmail.com
 .. _Factorial designs: http://en.wikipedia.org/wiki/Factorial_experiment
 .. _Box-Behnken designs: http://en.wikipedia.org/wiki/Box-Behnken_design
 .. _Central composite designs: http://en.wikipedia.org/wiki/Central_composite_design
+.. _Plackett-Burman designs: http://en.wikipedia.org/wiki/Plackett-Burman_design
+
