@@ -9,6 +9,8 @@ In this section, the following kinds of *factorial designs* will be described:
 - 2-Level Fractional-Factorial
 - Plackett-Burman
 
+.. index:: General Full-Factorial
+
 General Full-Factorial (``fullfact``)
 =====================================
 
@@ -30,6 +32,8 @@ where ``levels`` is an array of integers, like::
 As can be seen in the output, the design matrix has as many columns as 
 items in the input array.
 
+.. index:: 2-Level Full Factorial
+
 2-Level Full-Factorial (``ff2n``)
 =================================
 
@@ -47,6 +51,8 @@ create a design for::
            [ 0.,  1.,  1.],
            [ 1.,  1.,  1.]])
        
+.. index:: 2-Level Fractional Factorial
+
 2-Level Fractional-Factorial (``fracfact``)
 ===========================================
 
@@ -65,7 +71,8 @@ the others.
 
 For example, the alias "C = AB" or "I = ABC" indicate that there are 
 three factors (A, B, and C) and that the main effect of factor
-C is confounded with the interaction effect of the product AB. A full-
+C is confounded with the interaction effect of the product AB, and by
+extension, A is confounded with BC and B is confounded with AC. A full-
 factorial design with these three factors results in a design matrix with
 8 runs, but we will assume that we can only afford 4 of those runs. To 
 create this *fractional* design, we need a matrix with three columns, one
@@ -154,6 +161,8 @@ array to the keyword ``columns``::
 .. note::
    Care should be taken to decide the appropriate alias structure for 
    your design and the effects that folding has on it.
+
+.. index:: Plackett-Burman
 
 Plackett-Burman (``pbdesign``)
 ==============================
