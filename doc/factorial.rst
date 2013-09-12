@@ -55,8 +55,11 @@ will be allowed (this means that some factor effects get muddled with
 other interaction effects, so it's harder to distinguish between them).
 
 The input to ``fracfact`` is a generator string of symbolic characters
-(lowercase or uppercase) separated by spaces, like ``"a b ab"``. This 
-design would result in a 3-column matrix, where the confounding effect is 
+(lowercase or uppercase, but not both) separated by spaces, like::
+
+    >>> gen = 'a b ab' 
+
+This design would result in a 3-column matrix, where the confounding effect is 
 implicitly defined as ``"c = ab"``. This means that the factor in the third 
 column is confounded with the interaction of the factors in the first two 
 columns. The design ends up looking like this::
