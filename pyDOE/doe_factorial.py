@@ -23,8 +23,6 @@ def fullfact(levels):
         >>> fullfact([2, 4, 3])
 
     """
-    levels = levels[::-1]
-    
     n = len(levels)  # number of factors
     nb_lines = np.prod(levels)  # number of trial conditions
     H = np.zeros((nb_lines, n))
@@ -40,7 +38,7 @@ def fullfact(levels):
         level_repeat *= levels[i]
         H[:, i] = rng
      
-    return np.fliplr(H)
+    return H
     
 ################################################################################
 

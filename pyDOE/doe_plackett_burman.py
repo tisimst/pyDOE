@@ -44,6 +44,6 @@ def pbdesign(n):
     
     H = (1 + H[:, 1:])/2
    
-    return np.flipud(H)
+    return H
     
     

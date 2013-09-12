@@ -21,10 +21,10 @@ where ``levels`` is an array of integers, like::
 
     >>> fullfact([2, 3])
     array([[ 0.,  0.],
-           [ 0.,  1.],
-           [ 0.,  2.],
            [ 1.,  0.],
+           [ 0.,  1.],
            [ 1.,  1.],
+           [ 0.,  2.],
            [ 1.,  2.]])
 
 As can be seen in the output, the design matrix has as many columns as 
@@ -39,14 +39,14 @@ create a design for::
 
     >>> ff2n(3)
     array([[ 0.,  0.,  0.],
-           [ 0.,  0.,  1.],
-           [ 0.,  1.,  0.],
-           [ 0.,  1.,  1.],
            [ 1.,  0.,  0.],
-           [ 1.,  0.,  1.],
+           [ 0.,  1.,  0.],
            [ 1.,  1.,  0.],
+           [ 0.,  0.,  1.],
+           [ 1.,  0.,  1.],
+           [ 0.,  1.,  1.],
            [ 1.,  1.,  1.]])
-
+       
 2-Level Fractional-Factorial (``fracfact``)
 ===========================================
 
@@ -54,20 +54,38 @@ This function requires a little more knowledge of how the *confounding*
 will be allowed (this means that some factor effects get muddled with
 other interaction effects, so it's harder to distinguish between them).
 
+Let's assume that we just can't afford (for whatever reason) the number
+of runs in a *full-factorial* design. We can systematically decide on a
+*fraction of the full-factorial* by allowing some of the factor *main 
+effects* to be confounded with other factor *interaction effects*. This
+is done by defining an *alias* structure that defines, symbolically,
+these interactions. These alias structures are written like "C = AB" or 
+"I = ABC", or "AB = CD", etc. These define how one column is related to
+the others. 
+
+For example, the alias "C = AB" or "I = ABC" indicate that there are 
+three factors (A, B, and C) and that the main effect of factor
+C is confounded with the interaction effect of the product AB. A full-
+factorial design with these three factors results in a design matrix with
+8 runs, but we will assume that we can only afford 4 of those runs. To 
+create this *fractional* design, we need a matrix with three columns, one
+for A, B, and C, only now where the levels in the C column is created by 
+the product of the A and B columns.
+
 The input to ``fracfact`` is a generator string of symbolic characters
 (lowercase or uppercase, but not both) separated by spaces, like::
 
     >>> gen = 'a b ab' 
 
-This design would result in a 3-column matrix, where the confounding effect is 
+This design would result in a 3-column matrix, where the third column is 
 implicitly defined as ``"c = ab"``. This means that the factor in the third 
 column is confounded with the interaction of the factors in the first two 
 columns. The design ends up looking like this::
 
     >>> fracfact('a b ab')
     array([[ 0.,  0.,  1.],
-           [ 0.,  1.,  0.],
            [ 1.,  0.,  0.],
+           [ 0.,  1.,  0.],
            [ 1.,  1.,  1.]])
 
 Fractional factorial designs are usually specified using the notation 
@@ -82,35 +100,35 @@ generator::
 
     >>> fracfact('a b c ab ac bc abc')
     array([[ 0.,  0.,  0.,  1.,  1.,  1.,  0.],
-           [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],
-           [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],
-           [ 0.,  1.,  1.,  0.,  0.,  1.,  0.],
            [ 1.,  0.,  0.,  0.,  0.,  1.,  1.],
-           [ 1.,  0.,  1.,  0.,  1.,  0.,  0.],
+           [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],
            [ 1.,  1.,  0.,  1.,  0.,  0.,  0.],
+           [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],
+           [ 1.,  0.,  1.,  0.,  1.,  0.,  0.],
+           [ 0.,  1.,  1.,  0.,  0.,  1.,  0.],
            [ 1.,  1.,  1.,  1.,  1.,  1.,  1.]])
-       
+
 More sophisticated generator strings can be created using the "+" and 
 "-" operators. The "-" operator swaps the levels of that column like 
 this::
 
     >>> fracfact('a b -ab')
-    array([[ 0.,  0.,  0.],
-           [ 0.,  1.,  1.],
-           [ 1.,  0.,  1.],
-           [ 1.,  1.,  0.]]) 
+    array([[ 0.,  0.,  1.],
+           [ 1.,  0.,  0.],
+           [ 0.,  1.,  0.],
+           [ 1.,  1.,  1.]]) 
 
 In order to reduce confounding, we can utilize the ``fold`` function::
 
     >>> m = fracfact('a b ab')
     >>> fold(m)
     array([[ 0.,  0.,  1.],
-           [ 0.,  1.,  0.],
            [ 1.,  0.,  0.],
+           [ 0.,  1.,  0.],
            [ 1.,  1.,  1.],
            [ 1.,  1.,  0.],
-           [ 1.,  0.,  1.],
            [ 0.,  1.,  1.],
+           [ 1.,  0.,  1.],
            [ 0.,  0.,  0.]])
 
 Applying the fold to all columns in the design breaks the alias chains
@@ -125,12 +143,12 @@ array to the keyword ``columns``::
 
     >>> fold(m, columns=[2])
     array([[ 0.,  0.,  1.],
-           [ 0.,  1.,  0.],
            [ 1.,  0.,  0.],
+           [ 0.,  1.,  0.],
            [ 1.,  1.,  1.],
            [ 0.,  0.,  0.],
-           [ 0.,  1.,  1.],
            [ 1.,  0.,  1.],
+           [ 0.,  1.,  1.],
            [ 1.,  1.,  0.]])
 
 .. note::
@@ -149,23 +167,23 @@ the number of rows is always one less than the multiple of four.
 For example, I can use up to 3 factors in a design with 4 columns::
 
     >>> pbdesign(4)
-    array([[ 0.,  0.,  1.],
-           [ 1.,  0.,  0.],
+    array([[ 1.,  1.,  1.],
            [ 0.,  1.,  0.],
-           [ 1.,  1.,  1.]])
+           [ 1.,  0.,  0.],
+           [ 0.,  0.,  1.]])
 
 But if I want to do four factors, the design needs to increase the number
 of rows up to the next multiple of four (8 in this case)::
 
     >>> pbdesign(8)
-    array([[ 0.,  0.,  1.,  0.,  1.,  1.,  0.],
-           [ 1.,  0.,  0.,  0.,  0.,  1.,  1.],
-           [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],
-           [ 1.,  1.,  1.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],
-           [ 1.,  0.,  0.,  1.,  1.,  0.,  0.],
+    array([[ 1.,  1.,  1.,  1.,  1.,  1.,  1.],
            [ 0.,  1.,  0.,  1.,  0.,  1.,  0.],
-           [ 1.,  1.,  1.,  1.,  1.,  1.,  1.]])
+           [ 1.,  0.,  0.,  1.,  1.,  0.,  0.],
+           [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],
+           [ 1.,  1.,  1.,  0.,  0.,  0.,  0.],
+           [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],
+           [ 1.,  0.,  0.,  0.,  0.,  1.,  1.],
+           [ 0.,  0.,  1.,  0.,  1.,  1.,  0.]])
 
 So, an 8-run Plackett-Burman design can handle up to (8 - 1) or 7 factors.
 
