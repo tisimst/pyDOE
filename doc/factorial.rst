@@ -150,7 +150,7 @@ For example, I can use up to 3 factors in a design with 4 columns::
            [ 1.,  1.,  1.]])
 
 But if I want to do four factors, the design needs to increase the number
-of rows up to the next multiple four (8 in this case)::
+of rows up to the next multiple of four (8 in this case)::
 
     >>> pbdesign(8)
     array([[ 0.,  0.,  1.,  0.,  1.,  1.,  0.],
