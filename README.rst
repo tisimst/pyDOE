@@ -14,15 +14,15 @@ number of factors:
 
 - *Factorial Designs*
 
- #. **General Full-Factorial** (``fullfact``)
- #. **2-level Full-Factorial** (``ff2n``)
- #. **2-level Fractional Factorial** (``fracfact``)
- #. **Plackett-Burman** (``pbdesign``)
+   #. **General Full-Factorial** (``fullfact``)
+   #. **2-level Full-Factorial** (``ff2n``)
+   #. **2-level Fractional Factorial** (``fracfact``)
+   #. **Plackett-Burman** (``pbdesign``)
 
 - *Response-Surface Designs* 
 
- #. **Box-Behnken** (``bbdesign``)
- #. **Central-Composite** (``ccdesign``)
+   #. **Box-Behnken** (``bbdesign``)
+   #. **Central-Composite** (``ccdesign``)
 
 The following are *in the works* (probably), so stay tuned!
    
