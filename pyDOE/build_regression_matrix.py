@@ -4,7 +4,8 @@ def grep(haystack, needle):
     start = 0
     while True:
         start = haystack.find(needle, start)
-        if start==-1 return
+        if start==-1:
+            return
         yield start
         start += len(needle)
 
