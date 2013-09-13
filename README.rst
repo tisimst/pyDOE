@@ -49,73 +49,11 @@ Requirements
 Installation and download
 =========================
 
-Important note
---------------
+See the `package documentation`_ for helpful hints relating to downloading
+and installing pyDOE.
 
-The installation commands below should be **run in a DOS or Unix
-command shell** (*not* in a Python shell).
-
-Under Windows (version 7 and earlier), a command shell can be obtained
-by running ``cmd.exe`` (through the Run… menu item from the Start
-menu). Under Unix (Linux, Mac OS X,…), a Unix shell is available when
-opening a terminal (in Mac OS X, the Terminal program is found in the
-Utilities folder, which can be accessed through the Go menu in the
-Finder).
-
-Automatic install or upgrade
-----------------------------
-
-One of the automatic installation or upgrade procedures below might work 
-on your system, if you have a Python package installer or use certain 
-Linux distributions.
-
-Under Unix, it may be necessary to prefix the commands below with 
-``sudo``, so that the installation program has **sufficient access 
-rights to the system**.
-
-If you have `pip <http://pip.openplans.org/>`_, you can try to install
-the latest version with::
-
-   pip install --upgrade pyDOE
-
-If you have setuptools_, you can try to automatically install or
-upgrade this package with::
-
-   easy_install --upgrade pyDOE
-
-Manual download and install
----------------------------
-
-Alternatively, you can simply download_ the package archive from the
-Python Package Index (PyPI) and unpack it.  The package can then be
-installed by **going into the unpacked directory**
-(`pyDOE-...`), and running the provided `setup.py` program with::
-
-   python setup.py install
-
-or, for an installation in the user Python library (no additional access
-rights needed)::
-
-   python setup.py install --user
-
-or, for an installation in a custom directory `my_directory`::
-
-   python setup.py install --install-lib my_directory
-
-or, if additional access rights are needed (Unix)::
-
-   sudo python setup.py install
-
-You can also simply **move** the `pyDOE-py*` directory
-that corresponds best to your version of Python to a location that
-Python can import from (directory in which scripts using
-`pyDOE` are run, etc.); the chosen `pyDOE-py*` directory should then be
-renamed `pyDOE`. Python 3 users should then run ``2to3 -w .``
-from inside this directory so as to automatically adapt the code to
-Python 3.
-
-Source code
------------
+Source Code
+===========
 
 The latest, bleeding-edge but working `code
 <https://github.com/tisimst/pyDOE/tree/master/pyDOE>`_
@@ -152,5 +90,4 @@ References
 .. _Central composite designs: http://en.wikipedia.org/wiki/Central_composite_design
 .. _Plackett-Burman designs: http://en.wikipedia.org/wiki/Plackett-Burman_design
 .. _Latin-Hypercube designs: http://en.wikipedia.org/wiki/Latin_hypercube_sampling
-.. _setuptools: http://pypi.python.org/pypi/setuptools
-.. _download: http://pypi.python.org/pypi/pyDOE/#downloads
+.. _package documentation: http://pythonhosted.org/pyDOE
