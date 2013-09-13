@@ -119,14 +119,14 @@ side). Another common design is a Resolution III, 2^(7-4)
 fractional factorial and would be created using the following string 
 generator::
 
-    >>> fracfact('a b c ab ac bc abc')
-    array([[ 0.,  0.,  0.,  1.,  1.,  1.,  0.],
+    >>> fracfact('a b ab c ac bc abc')
+    array([[ 0.,  0.,  1.,  0.,  1.,  1.,  0.],
            [ 1.,  0.,  0.,  0.,  0.,  1.,  1.],
            [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],
-           [ 1.,  1.,  0.,  1.,  0.,  0.,  0.],
+           [ 1.,  1.,  1.,  0.,  0.,  0.,  0.],
            [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],
-           [ 1.,  0.,  1.,  0.,  1.,  0.,  0.],
-           [ 0.,  1.,  1.,  0.,  0.,  1.,  0.],
+           [ 1.,  0.,  0.,  1.,  1.,  0.,  0.],
+           [ 0.,  1.,  0.,  1.,  0.,  1.,  0.],
            [ 1.,  1.,  1.,  1.,  1.,  1.,  1.]])
 
 More sophisticated generator strings can be created using the "+" and 
@@ -211,6 +211,16 @@ of rows up to the next multiple of four (8 in this case)::
            [ 0.,  0.,  1.,  0.,  1.,  1.,  0.]])
 
 So, an 8-run Plackett-Burman design can handle up to (8 - 1) or 7 factors.
+
+It just so happens that the Plackett-Burman and 2^(7-4) fractional 
+factorial design are identical if we reverse the rows::
+
+    >>> import numpy as np
+    >>> pbd = pbdesign(8)
+    >>> pbd = np.flipud(pbd)  # reverse the rows here
+    >>> ffd = fracfact('a b ab c ac bc abc')
+    >>> np.all(pbd==ffd)
+    True
 
 .. index:: Factorial Designs Support
 

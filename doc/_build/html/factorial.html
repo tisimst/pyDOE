@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Factorial Designs &mdash; pyDOE 0.2 documentation</title>
+    <title>Factorial Designs &mdash; pyDOE 0.2.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2',
+        VERSION:     '0.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="pyDOE 0.2 documentation" href="index.html" />
+    <link rel="top" title="pyDOE 0.2.1 documentation" href="index.html" />
     <link rel="next" title="Response Surface Designs" href="rsm.html" />
     <link rel="prev" title="pyDOE: The experimental design package for python" href="index.html" /> 
   </head>
@@ -206,14 +206,14 @@ design (since the smallest alias &#8220;I=ABC&#8221; has three terms on the righ
 side). Another common design is a Resolution III, 2^(7-4)
 fractional factorial and would be created using the following string
 generator:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b c ab ac bc abc&#39;</span><span class="p">)</span>
-<span class="go">array([[ 0.,  0.,  0.,  1.,  1.,  1.,  0.],</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b ab c ac bc abc&#39;</span><span class="p">)</span>
+<span class="go">array([[ 0.,  0.,  1.,  0.,  1.,  1.,  0.],</span>
 <span class="go">       [ 1.,  0.,  0.,  0.,  0.,  1.,  1.],</span>
 <span class="go">       [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],</span>
-<span class="go">       [ 1.,  1.,  0.,  1.,  0.,  0.,  0.],</span>
+<span class="go">       [ 1.,  1.,  1.,  0.,  0.,  0.,  0.],</span>
 <span class="go">       [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],</span>
-<span class="go">       [ 1.,  0.,  1.,  0.,  1.,  0.,  0.],</span>
-<span class="go">       [ 0.,  1.,  1.,  0.,  0.,  1.,  0.],</span>
+<span class="go">       [ 1.,  0.,  0.,  1.,  1.,  0.,  0.],</span>
+<span class="go">       [ 0.,  1.,  0.,  1.,  0.,  1.,  0.],</span>
 <span class="go">       [ 1.,  1.,  1.,  1.,  1.,  1.,  1.]])</span>
 </pre></div>
 </div>
@@ -294,6 +294,16 @@ of rows up to the next multiple of four (8 in this case):</p>
 </pre></div>
 </div>
 <p>So, an 8-run Plackett-Burman design can handle up to (8 - 1) or 7 factors.</p>
+<p>It just so happens that the Plackett-Burman and 2^(7-4) fractional
+factorial design are identical if we reverse the rows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pbd</span> <span class="o">=</span> <span class="n">pbdesign</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pbd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">pbd</span><span class="p">)</span>  <span class="c"># reverse the rows here</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ffd</span> <span class="o">=</span> <span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b ab c ac bc abc&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">pbd</span><span class="o">==</span><span class="n">ffd</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="more-information">
 <span id="index-4"></span><h2>More Information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h2>
