@@ -191,15 +191,12 @@ columns. The design ends up looking like this:</p>
 </pre></div>
 </div>
 <p>Fractional factorial designs are usually specified using the notation
-<span class="math">\(2^{k-p}\)</span>
-, where k is the number of columns and p is the number
-of effects that are confounded. This is also known as a
-<em>Resolution (k-p+1)</em> design. In terms of <em>resolution</em> level, higher is
-&#8220;better&#8221;. The above design would be considered a <span class="math">\(2^{3-1}\)</span>
-
+2^(k-p), where k is the number of columns and p is the number
+of effects that are confounded. In terms of <em>resolution</em> level, higher is
+&#8220;better&#8221;. The above design would be considered a 2^(3-1)
 fractional factorial design, a 1/2-fraction design, or a <em>Resolution III</em>
-design. Another common design is a Resolution III, <span class="math">\(2^{7-4}\)</span>
-
+design (since the smallest alias &#8220;I=ABC&#8221; has three terms on the right-hand
+side). Another common design is a Resolution III, 2^(7-4)
 fractional factorial and would be created using the following string
 generator:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b c ab ac bc abc&#39;</span><span class="p">)</span>
@@ -217,10 +214,10 @@ generator:</p>
 &#8220;-&#8221; operators. The &#8220;-&#8221; operator swaps the levels of that column like
 this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b -ab&#39;</span><span class="p">)</span>
-<span class="go">array([[ 0.,  0.,  1.],</span>
-<span class="go">       [ 1.,  0.,  0.],</span>
-<span class="go">       [ 0.,  1.,  0.],</span>
-<span class="go">       [ 1.,  1.,  1.]])</span>
+<span class="go">array([[ 0.,  0.,  0.],</span>
+<span class="go">       [ 1.,  0.,  1.],</span>
+<span class="go">       [ 0.,  1.,  1.],</span>
+<span class="go">       [ 1.,  1.,  0.]])</span>
 </pre></div>
 </div>
 <p>In order to reduce confounding, we can utilize the <tt class="docutils literal"><span class="pre">fold</span></tt> function:</p>
