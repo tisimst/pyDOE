@@ -5,5 +5,7 @@ Table of Contents
    :maxdepth: 1
 
    Overview <index>
-   factorial
+   Factorial Designs <factorial>
+   Response Surface Designs <rsm>
+   Randomized Designs <randomized>
 

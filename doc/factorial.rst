@@ -196,6 +196,8 @@ of rows up to the next multiple of four (8 in this case)::
 
 So, an 8-run Plackett-Burman design can handle up to (8 - 1) or 7 factors.
 
+.. index:: Factorial Designs Support
+
 More Information
 ================
 

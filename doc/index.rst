@@ -33,6 +33,10 @@ number of factors:
 
   #. **Central-Composite** (``ccdesign``)
 
+- *Randomized Designs*
+
+  #. **Latin-Hypercube** (``lhs``)
+  
 The following are *in the works* (probably), so stay tuned!
    
 #. Split-plot designs
