@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Randomized Designs &mdash; pyDOE 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="pyDOE 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Response Surface Designs" href="rsm.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="index.html"><img src="_static/logo.png" border="0" alt="ad"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="rsm.html" title="Response Surface Designs"
+             accesskey="P">previous</a> |</li>
+        <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="factorial.html">Factorial Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rsm.html">Response Surface Designs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Randomized Designs</a></li>
+</ul>
+
+ 
+      </ul>
+    </div>
+
+
+
+<div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3>Table of contents</h3>
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="factorial.html">Factorial Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rsm.html">Response Surface Designs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Randomized Designs</a></li>
+</ul>
+
+            <h3>Section contents</h3>
+            <ul>
+<li><a class="reference internal" href="#">Randomized Designs</a><ul>
+<li><a class="reference internal" href="#latin-hypercube-lhs">Latin-Hypercube (<tt class="docutils literal"><span class="pre">lhs</span></tt>)</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
+</ul>
+
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Search the documentation.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+          <h3>Documentation license</h3>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" /></a>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="randomized-designs">
+<span id="index-0"></span><h1>Randomized Designs<a class="headerlink" href="#randomized-designs" title="Permalink to this headline">¶</a></h1>
+<p>In this section, the following kinds of <em>randomized designs</em> will
+be described:</p>
+<ul class="simple">
+<li>Latin-Hypercube</li>
+</ul>
+<div class="section" id="latin-hypercube-lhs">
+<span id="index-1"></span><h2>Latin-Hypercube (<tt class="docutils literal"><span class="pre">lhs</span></tt>)<a class="headerlink" href="#latin-hypercube-lhs" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/lhs.png" src="_images/lhs.png" />
+<p>Latin-hypercube designs can be created using the following simple syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">randomize</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">n</span></tt> is the number of factors, <tt class="docutils literal"><span class="pre">samples</span></tt> is the number of points
+to generate for each factor (default: <tt class="docutils literal"><span class="pre">n</span></tt>), and <tt class="docutils literal"><span class="pre">randomize</span></tt> is a
+boolean that tells the function to perturb the base points slightly
+(giving a &#8220;hint of randomness&#8221; while still maintaining uniformity across
+the design space).</p>
+<p>The output design scales all the variable ranges from zero to one which
+can then be transformed as the user wishes (like to a specific statistical
+distribution using the <a href="#id1"><span class="problematic" id="id2">`scipy.stats.distributions`_</span></a> <tt class="docutils literal"><span class="pre">ppf</span></tt> (inverse
+cumulative distribution) function. An example of this is shown below.</p>
+<p>For example, if I wanted to transform the uniform distribution of 5 samples
+to a normal distribution (mean=0, standard deviation=1), I would do
+something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.stats.distributions</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhd</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhd</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">lhd</span><span class="p">)</span>  <span class="c"># this applies to both factors here</span>
+</pre></div>
+</div>
+<p>Here&#8217;s what the two-factor transformation might look like graphically:</p>
+<img alt="_images/lhs_custom_distribution.png" src="_images/lhs_custom_distribution.png" />
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>A basic 4-factor latin-hypercube design:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">array([[ 0.875,  0.625,  0.875,  0.125],</span>
+<span class="go">       [ 0.375,  0.125,  0.375,  0.375],</span>
+<span class="go">       [ 0.625,  0.375,  0.125,  0.625],</span>
+<span class="go">       [ 0.125,  0.875,  0.625,  0.875]])</span>
+</pre></div>
+</div>
+<p>Let&#8217;s say we want more samples, like 10:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">array([[ 0.05,  0.05,  0.15,  0.15],</span>
+<span class="go">       [ 0.55,  0.85,  0.95,  0.75],</span>
+<span class="go">       [ 0.25,  0.25,  0.45,  0.25],</span>
+<span class="go">       [ 0.45,  0.35,  0.75,  0.45],</span>
+<span class="go">       [ 0.75,  0.55,  0.25,  0.55],</span>
+<span class="go">       [ 0.95,  0.45,  0.35,  0.05],</span>
+<span class="go">       [ 0.35,  0.95,  0.05,  0.65],</span>
+<span class="go">       [ 0.15,  0.65,  0.55,  0.35],</span>
+<span class="go">       [ 0.85,  0.75,  0.85,  0.85],</span>
+<span class="go">       [ 0.65,  0.15,  0.65,  0.95]])</span>
+</pre></div>
+</div>
+<p>Now, let&#8217;s say we want to translate these designs to be normally
+distributed with means = [1, 2, 3, 4] and standard deviations = [0.1,
+0.5, 1, 0.25]:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">design</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.stats.distributions</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stdvs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">design</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">means</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="n">stdvs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">design</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">design</span>
+<span class="go">array([[ 0.84947986,  2.16716215,  2.81669487,  3.96369414],</span>
+<span class="go">       [ 1.15820413,  1.62692745,  2.28145071,  4.25062028],</span>
+<span class="go">       [ 0.99159933,  2.6444164 ,  2.14908071,  3.45706066],</span>
+<span class="go">       [ 1.02627463,  1.8568382 ,  3.8172492 ,  4.16756309],</span>
+<span class="go">       [ 1.07459909,  2.30561153,  4.09567327,  4.3881782 ],</span>
+<span class="go">       [ 0.896079  ,  2.0233295 ,  1.54235909,  3.81888286],</span>
+<span class="go">       [ 1.00415   ,  2.4246118 ,  3.3500082 ,  4.07788558],</span>
+<span class="go">       [ 0.91999246,  1.50179698,  2.70669743,  3.7826346 ],</span>
+<span class="go">       [ 0.97030478,  1.99322045,  3.178122  ,  4.04955409],</span>
+<span class="go">       [ 1.12124679,  1.22454846,  4.52414072,  3.8707982 ]])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Methods for &#8220;space-filling&#8221; designs and &#8220;orthogonal&#8221; designs are in
+the works, so stay tuned! However, simply increasing the samples
+reduces the need for these anyway.</p>
+</div>
+</div>
+</div>
+<div class="section" id="more-information">
+<span id="index-2"></span><h2>More Information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h2>
+<p>If the user needs more information about appropriate designs, please
+consult the following articles on Wikipedia:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Latin_hypercube_sampling">Latin-Hypercube designs</a></li>
+</ul>
+<p>There is also a wealth of information on the <a class="reference external" href="http://www.itl.nist.gov/div898/handbook/pri/pri.htm">NIST</a> website about the
+various design matrices that can be created.</p>
+<p>Any questions, comments, bug-fixes, etc. can be forwarded to the <a class="reference external" href="mailto:tisimst&#37;&#52;&#48;gmail&#46;com">author</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="rsm.html" title="Response Surface Designs"
+             >previous</a> |</li>
+        <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="factorial.html">Factorial Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rsm.html">Response Surface Designs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Randomized Designs</a></li>
+</ul>
+
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Abraham Lee.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
