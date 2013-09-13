@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name='pyDOE',
-    version='0.1 alpha',
+    version='0.2',
     author='Abraham Lee',
     author_email='tisimst@gmail.com',
     description='Design of experiments for Python',
@@ -14,7 +14,7 @@ setup(
     license='BSD License',
     long_description=read('README.rst'),
     packages=['pyDOE'],
-    install_requires=['numpy'],
+    install_requires=['numpy', 'scipy'],
     keywords=[
         'DOE',
         'design of experiments',
@@ -24,7 +24,7 @@ setup(
         'python'
         ],
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Education',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: BSD License',
