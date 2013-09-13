@@ -61,7 +61,7 @@ def build_regression_matrix(H, model, build=None):
         VectorMode = False
         
         for i in xrange(nb_var):
-            for j in xrange(ListOfTokens.shape[0])
+            for j in xrange(ListOfTokens.shape[0]):
                 ListOfTokens[j] = ListOfTokens[j].replace(
                     'x' + str(0)*(size_index - len(str(i))) + str(i),
                     'H[i,' + str(i) + ')')
