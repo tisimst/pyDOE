@@ -72,6 +72,7 @@
 <li><a class="reference internal" href="#">Randomized Designs</a><ul>
 <li><a class="reference internal" href="#latin-hypercube-lhs">Latin-Hypercube (<tt class="docutils literal"><span class="pre">lhs</span></tt>)</a><ul>
 <li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#customizing-with-statistical-distributions">Customizing with Statistical Distributions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#more-information">More Information</a></li>
@@ -103,14 +104,21 @@
           <div class="body">
             
   <div class="section" id="randomized-designs">
-<span id="index-0"></span><h1>Randomized Designs<a class="headerlink" href="#randomized-designs" title="Permalink to this headline">¶</a></h1>
+<span id="randomized"></span><span id="index-0"></span><h1>Randomized Designs<a class="headerlink" href="#randomized-designs" title="Permalink to this headline">¶</a></h1>
 <p>In this section, the following kinds of <em>randomized designs</em> will
 be described:</p>
 <ul class="simple">
 <li>Latin-Hypercube</li>
 </ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>All available designs can be accessed after a simple import statement:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyDOE</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="latin-hypercube-lhs">
-<span id="index-1"></span><h2>Latin-Hypercube (<tt class="docutils literal"><span class="pre">lhs</span></tt>)<a class="headerlink" href="#latin-hypercube-lhs" title="Permalink to this headline">¶</a></h2>
+<span id="latin-hypercube"></span><span id="index-1"></span><h2>Latin-Hypercube (<tt class="docutils literal"><span class="pre">lhs</span></tt>)<a class="headerlink" href="#latin-hypercube-lhs" title="Permalink to this headline">¶</a></h2>
 <img alt="_images/lhs.png" src="_images/lhs.png" />
 <p>Latin-hypercube designs can be created using the following simple syntax:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">randomize</span><span class="p">)</span>
@@ -123,8 +131,8 @@ boolean that tells the function to perturb the base points slightly
 the design space).</p>
 <p>The output design scales all the variable ranges from zero to one which
 can then be transformed as the user wishes (like to a specific statistical
-distribution using the <a href="#id1"><span class="problematic" id="id2">`scipy.stats.distributions`_</span></a> <tt class="docutils literal"><span class="pre">ppf</span></tt> (inverse
-cumulative distribution) function. An example of this is shown below.</p>
+distribution using the <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats.distributions</a> <tt class="docutils literal"><span class="pre">ppf</span></tt> (inverse
+cumulative distribution) function. An example of this is <a class="reference internal" href="#statistical-distribution-usage"><em>shown below</em></a>.</p>
 <p>For example, if I wanted to transform the uniform distribution of 5 samples
 to a normal distribution (mean=0, standard deviation=1), I would do
 something like:</p>
@@ -159,7 +167,10 @@ something like:</p>
 <span class="go">       [ 0.65,  0.15,  0.65,  0.95]])</span>
 </pre></div>
 </div>
-<p>Now, let&#8217;s say we want to translate these designs to be normally
+</div>
+<div class="section" id="customizing-with-statistical-distributions">
+<span id="statistical-distribution-usage"></span><h3>Customizing with Statistical Distributions<a class="headerlink" href="#customizing-with-statistical-distributions" title="Permalink to this headline">¶</a></h3>
+<p>Now, let&#8217;s say we want to transform these designs to be normally
 distributed with means = [1, 2, 3, 4] and standard deviations = [0.1,
 0.5, 1, 0.25]:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">design</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -198,7 +209,8 @@ consult the following articles on Wikipedia:</p>
 <li><a class="reference external" href="http://en.wikipedia.org/wiki/Latin_hypercube_sampling">Latin-Hypercube designs</a></li>
 </ul>
 <p>There is also a wealth of information on the <a class="reference external" href="http://www.itl.nist.gov/div898/handbook/pri/pri.htm">NIST</a> website about the
-various design matrices that can be created.</p>
+various design matrices that can be created as well as detailed information
+about designing/setting-up/running experiments in general.</p>
 <p>Any questions, comments, bug-fixes, etc. can be forwarded to the <a class="reference external" href="mailto:tisimst&#37;&#52;&#48;gmail&#46;com">author</a>.</p>
 </div>
 </div>

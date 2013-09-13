@@ -1,5 +1,7 @@
 .. index:: Response Surface Designs, RSM
 
+.. _response_surface:
+
 ================================================================================
 Response Surface Designs
 ================================================================================
@@ -7,10 +9,17 @@ Response Surface Designs
 In this section, the following kinds of *response surface designs* will 
 be described:
 
-- Box-Behnken
-- Central Composite
+- :ref:`Box-Behnken <box_behnken>`
+- :ref:`Central Composite <central_composite>`
 
+.. hint::
+   All available designs can be accessed after a simple import statement::
+
+    >>> from pyDOE import *
+    
 .. index:: Box-Behnken
+
+.. _box_behnken:
 
 Box-Behnken (``bbdesign``)
 ==========================
@@ -78,6 +87,8 @@ A customized design with four factors, but only a single center point::
            [ 0.,  0.,  0.,  0.]])
 
 .. index:: Central Composite
+
+.. _central_composite:
 
 Central Composite (``ccdesign``)
 ================================
@@ -168,7 +179,8 @@ consult the following articles on Wikipedia:
 - `Central composite designs`_
 
 There is also a wealth of information on the `NIST`_ website about the
-various design matrices that can be created.
+various design matrices that can be created as well as detailed information
+about designing/setting-up/running experiments in general.
 
 Any questions, comments, bug-fixes, etc. can be forwarded to the `author`_.
 

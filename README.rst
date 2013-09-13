@@ -40,6 +40,8 @@ The following are *in the works* (probably), so stay tuned!
 
 #. D-Optimal designs
 
+*See the* `package homepage`_ *for details on usage and other notes*
+
 Requirements
 ============
 
@@ -49,7 +51,7 @@ Requirements
 Installation and download
 =========================
 
-See the `package documentation`_ for helpful hints relating to downloading
+See the `package homepage`_ for helpful hints relating to downloading
 and installing pyDOE.
 
 Source Code
@@ -90,4 +92,4 @@ References
 .. _Central composite designs: http://en.wikipedia.org/wiki/Central_composite_design
 .. _Plackett-Burman designs: http://en.wikipedia.org/wiki/Plackett-Burman_design
 .. _Latin-Hypercube designs: http://en.wikipedia.org/wiki/Latin_hypercube_sampling
-.. _package documentation: http://pythonhosted.org/pyDOE
+.. _package homepage: http://pythonhosted.org/pyDOE

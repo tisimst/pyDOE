@@ -1,15 +1,25 @@
+.. _factorial:
+
 ================================================================================
 Factorial Designs
 ================================================================================
 
 In this section, the following kinds of *factorial designs* will be described:
 
-- General Full-Factorial
-- 2-Level Full-Factorial
-- 2-Level Fractional-Factorial
-- Plackett-Burman
+- :ref:`General Full-Factorial <general_full_factorial>`
+- :ref:`2-Level Full-Factorial <2_level_full_factorial>`
+- :ref:`2-Level Fractional-Factorial <fractional_factorial>`
+- :ref:`Plackett-Burman <plackett_burman>`
+
+.. hint::
+   All available designs can be accessed after a simple import statement::
+
+    >>> from pyDOE import *
+    
 
 .. index:: General Full-Factorial
+
+.. _general_full_factorial:
 
 General Full-Factorial (``fullfact``)
 =====================================
@@ -34,6 +44,8 @@ items in the input array.
 
 .. index:: 2-Level Full Factorial
 
+.. _2_level_full_factorial:
+
 2-Level Full-Factorial (``ff2n``)
 =================================
 
@@ -52,6 +64,8 @@ create a design for::
            [ 1.,  1.,  1.]])
        
 .. index:: 2-Level Fractional Factorial
+
+.. _fractional_factorial:
 
 2-Level Fractional-Factorial (``fracfact``)
 ===========================================
@@ -164,6 +178,8 @@ array to the keyword ``columns``::
 
 .. index:: Plackett-Burman
 
+.. _plackett_burman:
+
 Plackett-Burman (``pbdesign``)
 ==============================
 
@@ -208,7 +224,8 @@ consult the following articles on Wikipedia:
 - `Plackett-Burman designs`_
 
 There is also a wealth of information on the `NIST`_ website about the
-various design matrices that can be created.
+various design matrices that can be created as well as detailed information
+about designing/setting-up/running experiments in general.
 
 Any questions, comments, bug-fixes, etc. can be forwarded to the `author`_.
 

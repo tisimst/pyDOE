@@ -111,15 +111,22 @@
           <div class="body">
             
   <div class="section" id="response-surface-designs">
-<span id="index-0"></span><h1>Response Surface Designs<a class="headerlink" href="#response-surface-designs" title="Permalink to this headline">¶</a></h1>
+<span id="response-surface"></span><span id="index-0"></span><h1>Response Surface Designs<a class="headerlink" href="#response-surface-designs" title="Permalink to this headline">¶</a></h1>
 <p>In this section, the following kinds of <em>response surface designs</em> will
 be described:</p>
 <ul class="simple">
-<li>Box-Behnken</li>
-<li>Central Composite</li>
+<li><a class="reference internal" href="#box-behnken"><em>Box-Behnken</em></a></li>
+<li><a class="reference internal" href="#central-composite"><em>Central Composite</em></a></li>
 </ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>All available designs can be accessed after a simple import statement:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyDOE</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="box-behnken-bbdesign">
-<span id="index-1"></span><h2>Box-Behnken (<tt class="docutils literal"><span class="pre">bbdesign</span></tt>)<a class="headerlink" href="#box-behnken-bbdesign" title="Permalink to this headline">¶</a></h2>
+<span id="box-behnken"></span><span id="index-1"></span><h2>Box-Behnken (<tt class="docutils literal"><span class="pre">bbdesign</span></tt>)<a class="headerlink" href="#box-behnken-bbdesign" title="Permalink to this headline">¶</a></h2>
 <img alt="http://www.itl.nist.gov/div898/handbook/pri/section3/gifs/bb.gif" src="http://www.itl.nist.gov/div898/handbook/pri/section3/gifs/bb.gif" />
 <p>Box-Behnken designs can be created using the following simple syntax:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bbdesign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">center</span><span class="p">)</span>
@@ -182,7 +189,7 @@ included.</p>
 </div>
 </div>
 <div class="section" id="central-composite-ccdesign">
-<span id="index-2"></span><h2>Central Composite (<tt class="docutils literal"><span class="pre">ccdesign</span></tt>)<a class="headerlink" href="#central-composite-ccdesign" title="Permalink to this headline">¶</a></h2>
+<span id="central-composite"></span><span id="index-2"></span><h2>Central Composite (<tt class="docutils literal"><span class="pre">ccdesign</span></tt>)<a class="headerlink" href="#central-composite-ccdesign" title="Permalink to this headline">¶</a></h2>
 <img alt="http://www.itl.nist.gov/div898/handbook/pri/section3/gifs/fig5.gif" src="http://www.itl.nist.gov/div898/handbook/pri/section3/gifs/fig5.gif" />
 <p>Central composite designs can be created and customized using the syntax:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ccdesign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">face</span><span class="p">)</span>
@@ -264,7 +271,8 @@ consult the following articles on Wikipedia:</p>
 <li><a class="reference external" href="http://en.wikipedia.org/wiki/Central_composite_design">Central composite designs</a></li>
 </ul>
 <p>There is also a wealth of information on the <a class="reference external" href="http://www.itl.nist.gov/div898/handbook/pri/pri.htm">NIST</a> website about the
-various design matrices that can be created.</p>
+various design matrices that can be created as well as detailed information
+about designing/setting-up/running experiments in general.</p>
 <p>Any questions, comments, bug-fixes, etc. can be forwarded to the <a class="reference external" href="mailto:tisimst&#37;&#52;&#48;gmail&#46;com">author</a>.</p>
 </div>
 </div>

@@ -120,25 +120,32 @@
 <p>The <tt class="docutils literal"><span class="pre">pyDOE</span></tt> package is designed to help the
 <strong>scientist, engineer, statistician,</strong> etc., to construct appropriate
 <strong>experimental designs</strong>.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>All available designs can be accessed after a simple import statement:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyDOE</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="capabilities">
 <h2>Capabilities<a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h2>
 <p>The package currently includes functions for creating designs for any
 number of factors:</p>
 <ul class="simple">
-<li><em>Factorial Designs</em><ol class="arabic">
-<li><strong>General Full-Factorial</strong> (<tt class="docutils literal"><span class="pre">fullfact</span></tt>)</li>
-<li><strong>2-level Full-Factorial</strong> (<tt class="docutils literal"><span class="pre">ff2n</span></tt>)</li>
-<li><strong>2-level Fractional Factorial</strong> (<tt class="docutils literal"><span class="pre">fracfact</span></tt>)</li>
-<li><strong>Plackett-Burman</strong> (<tt class="docutils literal"><span class="pre">pbdesign</span></tt>)</li>
+<li><a class="reference internal" href="factorial.html#factorial"><em>Factorial Designs</em></a><ol class="arabic">
+<li><a class="reference internal" href="factorial.html#general-full-factorial"><em>General Full-Factorial</em></a> (<tt class="docutils literal"><span class="pre">fullfact</span></tt>)</li>
+<li><a class="reference internal" href="factorial.html#level-full-factorial"><em>2-Level Full-Factorial</em></a> (<tt class="docutils literal"><span class="pre">ff2n</span></tt>)</li>
+<li><a class="reference internal" href="factorial.html#fractional-factorial"><em>2-Level Fractional-Factorial</em></a> (<tt class="docutils literal"><span class="pre">fracfact</span></tt>)</li>
+<li><a class="reference internal" href="factorial.html#plackett-burman"><em>Plackett-Burman</em></a> (<tt class="docutils literal"><span class="pre">pbdesign</span></tt>)</li>
 </ol>
 </li>
-<li><em>Response-Surface Designs</em><ol class="arabic">
-<li><strong>Box-Behnken</strong> (<tt class="docutils literal"><span class="pre">bbdesign</span></tt>)</li>
-<li><strong>Central-Composite</strong> (<tt class="docutils literal"><span class="pre">ccdesign</span></tt>)</li>
+<li><a class="reference internal" href="rsm.html#response-surface"><em>Response-Surface Designs</em></a><ol class="arabic">
+<li><a class="reference internal" href="rsm.html#box-behnken"><em>Box-Behnken</em></a> (<tt class="docutils literal"><span class="pre">bbdesign</span></tt>)</li>
+<li><a class="reference internal" href="rsm.html#central-composite"><em>Central-Composite</em></a> (<tt class="docutils literal"><span class="pre">ccdesign</span></tt>)</li>
 </ol>
 </li>
-<li><em>Randomized Designs</em><ol class="arabic">
-<li><strong>Latin-Hypercube</strong> (<tt class="docutils literal"><span class="pre">lhs</span></tt>)</li>
+<li><a class="reference internal" href="randomized.html#randomized"><em>Randomized Designs</em></a><ol class="arabic">
+<li><a class="reference internal" href="randomized.html#latin-hypercube"><em>Latin-Hypercube</em></a> (<tt class="docutils literal"><span class="pre">lhs</span></tt>)</li>
 </ol>
 </li>
 </ul>
@@ -249,6 +256,9 @@ be sent to the <a class="reference external" href="mailto:tisimst&#37;&#52;&#48;
 <li><a class="reference external" href="http://en.wikipedia.org/wiki/Central_composite_design">Central composite designs</a></li>
 <li><a class="reference external" href="http://en.wikipedia.org/wiki/Latin_hypercube_sampling">Latin-Hypercube designs</a></li>
 </ul>
+<p>There is also a wealth of information on the <a class="reference external" href="http://www.itl.nist.gov/div898/handbook/pri/pri.htm">NIST</a> website about the
+various design matrices that can be created as well as detailed information
+about designing/setting-up/running experiments in general.</p>
 </div>
 </div>
 

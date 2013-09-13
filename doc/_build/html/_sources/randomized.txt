@@ -1,5 +1,7 @@
 .. index:: Randomized Designs
 
+.. _randomized:
+
 ================================================================================
 Randomized Designs
 ================================================================================
@@ -9,7 +11,14 @@ be described:
 
 - Latin-Hypercube
 
+.. hint::
+   All available designs can be accessed after a simple import statement::
+
+    >>> from pyDOE import *
+    
 .. index:: Latin-Hypercube
+
+.. _latin_hypercube:
 
 Latin-Hypercube (``lhs``)
 =========================
@@ -29,7 +38,8 @@ the design space).
 The output design scales all the variable ranges from zero to one which
 can then be transformed as the user wishes (like to a specific statistical
 distribution using the `scipy.stats.distributions`_ ``ppf`` (inverse
-cumulative distribution) function. An example of this is shown below.
+cumulative distribution) function. An example of this is :ref:`shown below
+<statistical_distribution_usage>`.
 
 For example, if I wanted to transform the uniform distribution of 5 samples
 to a normal distribution (mean=0, standard deviation=1), I would do 
@@ -68,9 +78,12 @@ Let's say we want more samples, like 10::
            [ 0.85,  0.75,  0.85,  0.85],
            [ 0.65,  0.15,  0.65,  0.95]])
 
-.. Using Custom Distributions:
+.. _statistical_distribution_usage:
 
-Now, let's say we want to translate these designs to be normally
+Customizing with Statistical Distributions
+------------------------------------------
+
+Now, let's say we want to transform these designs to be normally
 distributed with means = [1, 2, 3, 4] and standard deviations = [0.1,
 0.5, 1, 0.25]::
 
@@ -109,10 +122,12 @@ consult the following articles on Wikipedia:
 - `Latin-Hypercube designs`_
 
 There is also a wealth of information on the `NIST`_ website about the
-various design matrices that can be created.
+various design matrices that can be created as well as detailed information
+about designing/setting-up/running experiments in general.
 
 Any questions, comments, bug-fixes, etc. can be forwarded to the `author`_.
 
 .. _author: mailto:tisimst@gmail.com
 .. _Latin-Hypercube designs: http://en.wikipedia.org/wiki/Latin_hypercube_sampling
 .. _NIST: http://www.itl.nist.gov/div898/handbook/pri/pri.htm
+.. _scipy.stats.distributions: http://docs.scipy.org/doc/scipy/reference/stats.html

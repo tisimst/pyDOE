@@ -11,31 +11,36 @@ The ``pyDOE`` package is designed to help the
 **scientist, engineer, statistician,** etc., to construct appropriate 
 **experimental designs**.
 
+.. hint::
+   All available designs can be accessed after a simple import statement::
+
+    >>> from pyDOE import *
+    
 Capabilities
 ============
 
 The package currently includes functions for creating designs for any 
 number of factors:
 
-- *Factorial Designs*
+- :ref:`Factorial Designs <factorial>`
 
-  #. **General Full-Factorial** (``fullfact``)
+  #. :ref:`General Full-Factorial <general_full_factorial>` (``fullfact``)
 
-  #. **2-level Full-Factorial** (``ff2n``)
+  #. :ref:`2-Level Full-Factorial <2_level_full_factorial>` (``ff2n``)
 
-  #. **2-level Fractional Factorial** (``fracfact``)
+  #. :ref:`2-Level Fractional-Factorial <fractional_factorial>` (``fracfact``)
 
-  #. **Plackett-Burman** (``pbdesign``)
+  #. :ref:`Plackett-Burman <plackett_burman>` (``pbdesign``)
 
-- *Response-Surface Designs* 
+- :ref:`Response-Surface Designs <response_surface>`
 
-  #. **Box-Behnken** (``bbdesign``)
+  #. :ref:`Box-Behnken <box_behnken>` (``bbdesign``)
 
-  #. **Central-Composite** (``ccdesign``)
+  #. :ref:`Central-Composite <central_composite>` (``ccdesign``)
 
-- *Randomized Designs*
+- :ref:`Randomized Designs <randomized>`
 
-  #. **Latin-Hypercube** (``lhs``)
+  #. :ref:`Latin-Hypercube <latin_hypercube>` (``lhs``)
   
 The following are *in the works* (probably), so stay tuned!
    
@@ -171,6 +176,10 @@ References
 - `Central composite designs`_
 - `Latin-Hypercube designs`_
 
+There is also a wealth of information on the `NIST`_ website about the
+various design matrices that can be created as well as detailed information
+about designing/setting-up/running experiments in general.
+
 .. _author: mailto:tisimst@gmail.com
 .. _Factorial designs: http://en.wikipedia.org/wiki/Factorial_experiment
 .. _Box-Behnken designs: http://en.wikipedia.org/wiki/Box-Behnken_design
@@ -179,4 +188,4 @@ References
 .. _Latin-Hypercube designs: http://en.wikipedia.org/wiki/Latin_hypercube_sampling
 .. _setuptools: http://pypi.python.org/pypi/setuptools
 .. _download: http://pypi.python.org/pypi/pyDOE/#downloads
-
+.. _NIST: http://www.itl.nist.gov/div898/handbook/pri/pri.htm

@@ -107,16 +107,23 @@
           <div class="body">
             
   <div class="section" id="factorial-designs">
-<h1>Factorial Designs<a class="headerlink" href="#factorial-designs" title="Permalink to this headline">¶</a></h1>
+<span id="factorial"></span><h1>Factorial Designs<a class="headerlink" href="#factorial-designs" title="Permalink to this headline">¶</a></h1>
 <p>In this section, the following kinds of <em>factorial designs</em> will be described:</p>
 <ul class="simple">
-<li>General Full-Factorial</li>
-<li>2-Level Full-Factorial</li>
-<li>2-Level Fractional-Factorial</li>
-<li>Plackett-Burman</li>
+<li><a class="reference internal" href="#general-full-factorial"><em>General Full-Factorial</em></a></li>
+<li><a class="reference internal" href="#level-full-factorial"><em>2-Level Full-Factorial</em></a></li>
+<li><a class="reference internal" href="#fractional-factorial"><em>2-Level Fractional-Factorial</em></a></li>
+<li><a class="reference internal" href="#plackett-burman"><em>Plackett-Burman</em></a></li>
 </ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>All available designs can be accessed after a simple import statement:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyDOE</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="general-full-factorial-fullfact">
-<span id="index-0"></span><h2>General Full-Factorial (<tt class="docutils literal"><span class="pre">fullfact</span></tt>)<a class="headerlink" href="#general-full-factorial-fullfact" title="Permalink to this headline">¶</a></h2>
+<span id="general-full-factorial"></span><span id="index-0"></span><h2>General Full-Factorial (<tt class="docutils literal"><span class="pre">fullfact</span></tt>)<a class="headerlink" href="#general-full-factorial-fullfact" title="Permalink to this headline">¶</a></h2>
 <p>This kind of design offers full flexibility as to the number of discrete
 levels for each factor in the design. Its usage is simple:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fullfact</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span>
@@ -136,7 +143,7 @@ levels for each factor in the design. Its usage is simple:</p>
 items in the input array.</p>
 </div>
 <div class="section" id="level-full-factorial-ff2n">
-<span id="index-1"></span><h2>2-Level Full-Factorial (<tt class="docutils literal"><span class="pre">ff2n</span></tt>)<a class="headerlink" href="#level-full-factorial-ff2n" title="Permalink to this headline">¶</a></h2>
+<span id="level-full-factorial"></span><span id="index-1"></span><h2>2-Level Full-Factorial (<tt class="docutils literal"><span class="pre">ff2n</span></tt>)<a class="headerlink" href="#level-full-factorial-ff2n" title="Permalink to this headline">¶</a></h2>
 <p>This function is a convenience wrapper to <tt class="docutils literal"><span class="pre">fullfact</span></tt> that forces all the
 factors to have two levels each, you simple tell it how many factors to
 create a design for:</p>
@@ -153,7 +160,7 @@ create a design for:</p>
 </div>
 </div>
 <div class="section" id="level-fractional-factorial-fracfact">
-<span id="index-2"></span><h2>2-Level Fractional-Factorial (<tt class="docutils literal"><span class="pre">fracfact</span></tt>)<a class="headerlink" href="#level-fractional-factorial-fracfact" title="Permalink to this headline">¶</a></h2>
+<span id="fractional-factorial"></span><span id="index-2"></span><h2>2-Level Fractional-Factorial (<tt class="docutils literal"><span class="pre">fracfact</span></tt>)<a class="headerlink" href="#level-fractional-factorial-fracfact" title="Permalink to this headline">¶</a></h2>
 <p>This function requires a little more knowledge of how the <em>confounding</em>
 will be allowed (this means that some factor effects get muddled with
 other interaction effects, so it&#8217;s harder to distinguish between them).</p>
@@ -259,7 +266,7 @@ your design and the effects that folding has on it.</p>
 </div>
 </div>
 <div class="section" id="plackett-burman-pbdesign">
-<span id="index-3"></span><h2>Plackett-Burman (<tt class="docutils literal"><span class="pre">pbdesign</span></tt>)<a class="headerlink" href="#plackett-burman-pbdesign" title="Permalink to this headline">¶</a></h2>
+<span id="plackett-burman"></span><span id="index-3"></span><h2>Plackett-Burman (<tt class="docutils literal"><span class="pre">pbdesign</span></tt>)<a class="headerlink" href="#plackett-burman-pbdesign" title="Permalink to this headline">¶</a></h2>
 <p>Another way to generate fractional-factorial designs is through the use
 of <strong>Plackett-Burman</strong> designs. These designs are unique in that the
 number of trial conditions (rows) expands by multiples of four (e.g. 4,
@@ -297,7 +304,8 @@ consult the following articles on Wikipedia:</p>
 <li><a class="reference external" href="http://en.wikipedia.org/wiki/Plackett-Burman_design">Plackett-Burman designs</a></li>
 </ul>
 <p>There is also a wealth of information on the <a class="reference external" href="http://www.itl.nist.gov/div898/handbook/pri/pri.htm">NIST</a> website about the
-various design matrices that can be created.</p>
+various design matrices that can be created as well as detailed information
+about designing/setting-up/running experiments in general.</p>
 <p>Any questions, comments, bug-fixes, etc. can be forwarded to the <a class="reference external" href="mailto:tisimst&#37;&#52;&#48;gmail&#46;com">author</a>.</p>
 </div>
 </div>
