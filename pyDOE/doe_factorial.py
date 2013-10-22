@@ -1,6 +1,8 @@
 import re
 import numpy as np
 
+__all__ = ['fullfact', 'ff2n', 'fracfact']
+
 def fullfact(levels):
     """
     Create a general full-factorial design
@@ -38,7 +40,7 @@ def fullfact(levels):
         level_repeat *= levels[i]
         H[:, i] = rng
      
-    return H
+    return H[:, ::-1]  # reverse columns
     
 ################################################################################
 
@@ -163,7 +165,7 @@ def fracfact(gen):
         H[:, R2] *= -1
         
     # Return the fractional factorial design
-    return (1 + H)/2
+    return H
     
 def _grep(haystack, needle):
     try:

@@ -2,6 +2,8 @@ import numpy as np
 from doe_factorial import ff2n
 from doe_repeat_center import repeat_center
 
+__all__ = ['bbdesign']
+
 def bbdesign(n, center=None):
     """
     Create a Box-Behnken design

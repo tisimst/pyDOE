@@ -1,5 +1,7 @@
 import numpy as np
 
+__all__ = ['fold']
+
 def fold(H, columns=None):
     """
     Fold a design to reduce confounding effects.

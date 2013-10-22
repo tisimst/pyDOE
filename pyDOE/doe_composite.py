@@ -4,6 +4,8 @@ from doe_star import star
 from doe_union import union
 from doe_repeat_center import repeat_center
 
+__all__ = ['ccdesign']
+
 def ccdesign(n, center=(4, 4), alpha='orthogonal', face='circumscribed'):
     """
     Central composite design
