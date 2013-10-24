@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Randomized Designs &mdash; pyDOE 0.2.1 documentation</title>
+    <title>Randomized Designs &mdash; pyDOE 0.2.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.1',
+        VERSION:     '0.2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="pyDOE 0.2.1 documentation" href="index.html" />
+    <link rel="top" title="pyDOE 0.2.2 documentation" href="index.html" />
     <link rel="prev" title="Response Surface Designs" href="rsm.html" /> 
   </head>
   <body>
@@ -121,32 +121,45 @@ be described:</p>
 <span id="latin-hypercube"></span><span id="index-1"></span><h2>Latin-Hypercube (<tt class="docutils literal"><span class="pre">lhs</span></tt>)<a class="headerlink" href="#latin-hypercube-lhs" title="Permalink to this headline">¶</a></h2>
 <img alt="_images/lhs.png" src="_images/lhs.png" />
 <p>Latin-hypercube designs can be created using the following simple syntax:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">randomize</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="p">[</span><span class="n">samples</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">iterations</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>where <tt class="docutils literal"><span class="pre">n</span></tt> is the number of factors, <tt class="docutils literal"><span class="pre">samples</span></tt> is the number of points
-to generate for each factor (default: <tt class="docutils literal"><span class="pre">n</span></tt>), and <tt class="docutils literal"><span class="pre">randomize</span></tt> is a
-boolean that tells the function to perturb the base points slightly
-(giving a &#8220;hint of randomness&#8221; while still maintaining uniformity across
-the design space).</p>
+<p>where</p>
+<ul class="simple">
+<li><strong>n</strong>: an integer that designates the number of factors (required)</li>
+<li><strong>samples</strong>: an integer that designates the number of sample points to
+generate for each factor (default: n)</li>
+<li><strong>criterion</strong>: a string that tells <tt class="docutils literal"><span class="pre">lhs</span></tt> how to sample the points
+(default: None, which simply randomizes the points within the intervals):<ul>
+<li>&#8220;center&#8221; or &#8220;c&#8221;: center the points within the sampling intervals</li>
+<li>&#8220;maximin&#8221; or &#8220;m&#8221;: maximize the minimum distance between points, but
+place the point in a randomized location within its interval</li>
+<li>&#8220;centermaximin&#8221; or &#8220;cm&#8221;: same as &#8220;maximin&#8221;, but centered within the
+intervals</li>
+<li>&#8220;correlation&#8221; or &#8220;corr&#8221;: minimize the maximum correlation coefficient</li>
+</ul>
+</li>
+</ul>
 <p>The output design scales all the variable ranges from zero to one which
 can then be transformed as the user wishes (like to a specific statistical
 distribution using the <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats.distributions</a> <tt class="docutils literal"><span class="pre">ppf</span></tt> (inverse
 cumulative distribution) function. An example of this is <a class="reference internal" href="#statistical-distribution-usage"><em>shown below</em></a>.</p>
-<p>For example, if I wanted to transform the uniform distribution of 5 samples
+<p>For example, if I wanted to transform the uniform distribution of 8 samples
 to a normal distribution (mean=0, standard deviation=1), I would do
 something like:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.stats.distributions</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lhd</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lhd</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lhd</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">lhd</span><span class="p">)</span>  <span class="c"># this applies to both factors here</span>
 </pre></div>
 </div>
-<p>Here&#8217;s what the two-factor transformation might look like graphically:</p>
+<p>Graphically, each transformation would look like the following, going
+from the blue sampled points (from using <tt class="docutils literal"><span class="pre">lhs</span></tt>) to the green
+sampled points that are normally distributed:</p>
 <img alt="_images/lhs_custom_distribution.png" src="_images/lhs_custom_distribution.png" />
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
 <p>A basic 4-factor latin-hypercube design:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s">&#39;center&#39;</span><span class="p">)</span>
 <span class="go">array([[ 0.875,  0.625,  0.875,  0.125],</span>
 <span class="go">       [ 0.375,  0.125,  0.375,  0.375],</span>
 <span class="go">       [ 0.625,  0.375,  0.125,  0.625],</span>
@@ -154,7 +167,7 @@ something like:</p>
 </pre></div>
 </div>
 <p>Let&#8217;s say we want more samples, like 10:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s">&#39;center&#39;</span><span class="p">)</span>
 <span class="go">array([[ 0.05,  0.05,  0.15,  0.15],</span>
 <span class="go">       [ 0.55,  0.85,  0.95,  0.75],</span>
 <span class="go">       [ 0.25,  0.25,  0.45,  0.25],</span>
@@ -173,7 +186,7 @@ something like:</p>
 <p>Now, let&#8217;s say we want to transform these designs to be normally
 distributed with means = [1, 2, 3, 4] and standard deviations = [0.1,
 0.5, 1, 0.25]:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">design</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">design</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.stats.distributions</span> <span class="kn">import</span> <span class="n">norm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stdvs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>

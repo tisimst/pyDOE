@@ -27,29 +27,40 @@ Latin-Hypercube (``lhs``)
 
 Latin-hypercube designs can be created using the following simple syntax::
 
-    >>> lhs(n, samples, randomize)
+    >>> lhs(n, [samples, criterion, iterations])
 
-where ``n`` is the number of factors, ``samples`` is the number of points
-to generate for each factor (default: ``n``), and ``randomize`` is a
-boolean that tells the function to perturb the base points slightly 
-(giving a "hint of randomness" while still maintaining uniformity across
-the design space).
+where 
 
+* **n**: an integer that designates the number of factors (required)
+* **samples**: an integer that designates the number of sample points to 
+  generate for each factor (default: n)
+* **criterion**: a string that tells ``lhs`` how to sample the points
+  (default: None, which simply randomizes the points within the intervals):
+  
+  - "center" or "c": center the points within the sampling intervals
+  - "maximin" or "m": maximize the minimum distance between points, but
+    place the point in a randomized location within its interval
+  - "centermaximin" or "cm": same as "maximin", but centered within the
+    intervals
+  - "correlation" or "corr": minimize the maximum correlation coefficient
+  
 The output design scales all the variable ranges from zero to one which
 can then be transformed as the user wishes (like to a specific statistical
 distribution using the `scipy.stats.distributions`_ ``ppf`` (inverse
 cumulative distribution) function. An example of this is :ref:`shown below
 <statistical_distribution_usage>`.
 
-For example, if I wanted to transform the uniform distribution of 5 samples
+For example, if I wanted to transform the uniform distribution of 8 samples
 to a normal distribution (mean=0, standard deviation=1), I would do 
 something like::
 
     >>> from scipy.stats.distributions import norm
-    >>> lhd = lhs(2, samples=5, randomize=True)
+    >>> lhd = lhs(2, samples=5)
     >>> lhd = norm(loc=0, scale=1).ppf(lhd)  # this applies to both factors here
 
-Here's what the two-factor transformation might look like graphically:
+Graphically, each transformation would look like the following, going 
+from the blue sampled points (from using ``lhs``) to the green
+sampled points that are normally distributed:
 
 .. image:: _static/lhs_custom_distribution.png
 
@@ -58,7 +69,7 @@ Examples
 
 A basic 4-factor latin-hypercube design::
 
-    >>> lhs(4)
+    >>> lhs(4, criterion='center')
     array([[ 0.875,  0.625,  0.875,  0.125],
            [ 0.375,  0.125,  0.375,  0.375],
            [ 0.625,  0.375,  0.125,  0.625],
@@ -66,7 +77,7 @@ A basic 4-factor latin-hypercube design::
 
 Let's say we want more samples, like 10::
 
-    >>> lhs(4, samples=10)
+    >>> lhs(4, samples=10, criterion='center')
     array([[ 0.05,  0.05,  0.15,  0.15],
            [ 0.55,  0.85,  0.95,  0.75],
            [ 0.25,  0.25,  0.45,  0.25],
@@ -87,7 +98,7 @@ Now, let's say we want to transform these designs to be normally
 distributed with means = [1, 2, 3, 4] and standard deviations = [0.1,
 0.5, 1, 0.25]::
 
-    >>> design = lhs(4, samples=10, randomize=True)
+    >>> design = lhs(4, samples=10)
     >>> from scipy.stats.distributions import norm
     >>> means = [1, 2, 3, 4]
     >>> stdvs = [0.1, 0.5, 1, 0.25]

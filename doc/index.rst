@@ -42,14 +42,6 @@ number of factors:
 
   #. :ref:`Latin-Hypercube <latin_hypercube>` (``lhs``)
   
-The following are *in the works* (probably), so stay tuned!
-   
-#. Split-plot designs
-
-#. Incomplete block designs
-
-#. D-Optimal designs
-
 Requirements
 ============
 
