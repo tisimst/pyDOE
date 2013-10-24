@@ -40,6 +40,21 @@ Requirements
 - NumPy
 - SciPy
 
+What's New
+==========
+
+In this release, some significant improvements and flexibility have been
+added to the **latin-hypercube sampling function** (see `lhs documentation`_
+for details):
+
+* The "criterion" keyword-argument has been added to allow for more
+  advanced sampling techniques (default simply randomizes within the
+  sampling intervals)
+  
+  * centered within sampling intervals
+  * maximize the minimum distance between points
+  * minimize the maximum correlation coefficient
+
 Installation and download
 =========================
 
@@ -85,3 +100,4 @@ References
 .. _Plackett-Burman designs: http://en.wikipedia.org/wiki/Plackett-Burman_design
 .. _Latin-Hypercube designs: http://en.wikipedia.org/wiki/Latin_hypercube_sampling
 .. _package homepage: http://pythonhosted.org/pyDOE
+.. _lhs documentation: http://pythonhosted.org/pyDOE/randomized.html#latin-hypercube
