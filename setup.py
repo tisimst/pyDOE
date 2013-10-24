@@ -13,7 +13,7 @@ setup(
     description='Design of experiments for Python',
     url='https://github.com/tisimst/pyDOE',
     license='BSD License',
-    long_description=read('README.rst'),
+    long_description=read('README'),
     packages=['pyDOE'],
     install_requires=['numpy', 'scipy'],
     keywords=[
