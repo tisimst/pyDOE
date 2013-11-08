@@ -41,7 +41,7 @@ In this release, the Plackett-Burman constructor has been simplified to
 require only the number of factors: ``pbdesign(n)``. The design is now able 
 to grow as large as necessary to accomodate any number of factors.
 
-Also, the factorial (``ff2n``, ``fracfact``, and ``pbdesign``) designs have 
+Also, the factorial designs (``ff2n``, ``fracfact``, and ``pbdesign``) have 
 all been standardized (except for ``fullfact``, which needs the flexibility) 
 to have coded levels -1 and 1 for the low and high levels.
 
