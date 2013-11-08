@@ -4,43 +4,37 @@ from scipy.linalg import toeplitz, hankel
 
 __all__ = ['pbdesign']
 
-def pbdesign(n, keep=None):
+def pbdesign(n):
     """
     Generate a Plackett-Burman design
     
     Parameter
     ---------
     n : int
-        The multiple of 4 higher than the number of factors.
-    
-    Optional
-    --------
-    keep : int
-        The actual number of factors that the matrix will be used for 
-        (default: n).
+        The number of factors to create a matrix for.
     
     Returns
     -------
     H : 2d-array
-        An orthogonal design matrix with n rows, and (n-1) columns.
+        An orthogonal design matrix with n columns, one for each factor, and
+        the number of rows being the next multiple of 4 higher than n (e.g.,
+        for 1-3 factors there are 4 rows, for 4-7 factors there are 8 rows,
+        etc.)
     
     Example
     -------
-    Create a 5-factor design::
     
-        >>> pbdesign(8)  # since 8 is the next heigher multiple of 4
-        array([[ 1.,  1.,  1.,  1.,  1.,  1.,  1.],
-               [-1.,  1., -1.,  1., -1.,  1., -1.],
-               [ 1., -1., -1.,  1.,  1., -1., -1.],
-               [-1., -1.,  1.,  1., -1., -1.,  1.],
-               [ 1.,  1.,  1., -1., -1., -1., -1.],
-               [-1.,  1., -1., -1.,  1., -1.,  1.],
-               [ 1., -1., -1., -1., -1.,  1.,  1.],
-               [-1., -1.,  1., -1.,  1.,  1., -1.]])
-
-    And if we only want to keep the needed five columns::
+    A 3-factor design::
     
-        >>> pbdesign(8, keep=5)
+        >>> pbdesign(3)
+        array([[ 1.,  1.,  1.],
+               [-1.,  1., -1.],
+               [ 1., -1., -1.],
+               [-1., -1.,  1.]])
+       
+    A 5-factor design::
+    
+        >>> pbdesign(5)
         array([[ 1.,  1.,  1.,  1.,  1.],
                [-1.,  1., -1.,  1., -1.],
                [ 1., -1., -1.,  1.,  1.],
@@ -49,9 +43,11 @@ def pbdesign(n, keep=None):
                [-1.,  1., -1., -1.,  1.],
                [ 1., -1., -1., -1., -1.],
                [-1., -1.,  1., -1.,  1.]])
-        
     
     """
+    assert n>0, 'Number of factors must be a positive integer'
+    keep = int(n)
+    n = 4*(int(n/4) + 1)  # calculate the correct number of rows (multiple of 4)
     f, e = np.frexp([n, n/12., n/20.])
     k = [idx for idx, val in enumerate(np.logical_and(f==0.5, e>0)) if val]
     
@@ -77,10 +73,6 @@ def pbdesign(n, keep=None):
     for i in xrange(e):
         H = np.vstack((np.hstack((H, H)), np.hstack((H, -H))))
     
-    if keep is not None:
-        assert keep<=(H.shape[1]-1), 'Too many variables specified in "keep" for matrix'
-        return H[:, 1:(keep + 1)]
-    else:
-        return H[:, 1:]
+    return H[:, 1:(keep + 1)]
     
     
