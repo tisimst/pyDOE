@@ -34,26 +34,18 @@ number of factors:
   
 *See the* `package homepage`_ *for details on usage and other notes*
 
+What's New
+==========
+
+In this release, the Plackett-Burman constructor has been simplified to 
+require only the number of factors: ``pbdesign(n)``. The design is now able 
+to grow as large as necessary to accomodate any number of factors.
+
 Requirements
 ============
 
 - NumPy
 - SciPy
-
-What's New
-==========
-
-In this release, some significant improvements and flexibility have been
-added to the **latin-hypercube sampling function** (see `lhs documentation`_
-for details):
-
-* The "criterion" keyword-argument has been added to allow for more
-  advanced sampling techniques (default simply randomizes within the
-  sampling intervals)
-  
-  * centered within sampling intervals
-  * maximize the minimum distance between points
-  * minimize the maximum correlation coefficient
 
 Installation and download
 =========================

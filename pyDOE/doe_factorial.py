@@ -1,7 +1,7 @@
 import re
 import numpy as np
 
-__all__ = ['fullfact', 'ff2n', 'fracfact']
+__all__ = ['np', 'fullfact', 'ff2n', 'fracfact']
 
 def fullfact(levels):
     """
@@ -16,14 +16,38 @@ def fullfact(levels):
     Returns
     -------
     mat : 2d-array
-        The design matrix with coded levels 1 to k for a k-level factor
+        The design matrix with coded levels 0 to k-1 for a k-level factor
     
     Example
     -------
     ::
     
         >>> fullfact([2, 4, 3])
-
+        array([[ 0.,  0.,  0.],
+               [ 1.,  0.,  0.],
+               [ 0.,  1.,  0.],
+               [ 1.,  1.,  0.],
+               [ 0.,  2.,  0.],
+               [ 1.,  2.,  0.],
+               [ 0.,  3.,  0.],
+               [ 1.,  3.,  0.],
+               [ 0.,  0.,  1.],
+               [ 1.,  0.,  1.],
+               [ 0.,  1.,  1.],
+               [ 1.,  1.,  1.],
+               [ 0.,  2.,  1.],
+               [ 1.,  2.,  1.],
+               [ 0.,  3.,  1.],
+               [ 1.,  3.,  1.],
+               [ 0.,  0.,  2.],
+               [ 1.,  0.,  2.],
+               [ 0.,  1.,  2.],
+               [ 1.,  1.,  2.],
+               [ 0.,  2.,  2.],
+               [ 1.,  2.,  2.],
+               [ 0.,  3.,  2.],
+               [ 1.,  3.,  2.]])
+               
     """
     n = len(levels)  # number of factors
     nb_lines = np.prod(levels)  # number of trial conditions
@@ -40,7 +64,7 @@ def fullfact(levels):
         level_repeat *= levels[i]
         H[:, i] = rng
      
-    return H[:, ::-1]  # reverse columns
+    return H
     
 ################################################################################
 
@@ -63,9 +87,17 @@ def ff2n(n):
     ::
     
         >>> ff2n(3)
-    
+        array([[-1., -1., -1.],
+               [ 1., -1., -1.],
+               [-1.,  1., -1.],
+               [ 1.,  1., -1.],
+               [-1., -1.,  1.],
+               [ 1., -1.,  1.],
+               [-1.,  1.,  1.],
+               [ 1.,  1.,  1.]])
+       
     """
-    return fullfact([2]*n)
+    return 2*fullfact([2]*n) - 1
 
 ################################################################################
 
@@ -118,12 +150,28 @@ def fracfact(gen):
     --------
     ::
     
-        H = fracfact("a b ab")
+        >>> fracfact("a b ab")
+        array([[-1., -1.,  1.],
+               [ 1., -1., -1.],
+               [-1.,  1., -1.],
+               [ 1.,  1.,  1.]])
+       
+        >>> fracfact("A B AB")
+        array([[-1., -1.,  1.],
+               [ 1., -1., -1.],
+               [-1.,  1., -1.],
+               [ 1.,  1.,  1.]])
         
-        H = fracfact("A B AB")
-        
-        H = fracfact("a b -ab c +abc")
-    
+        >>> fracfact("a b -ab c +abc")
+        array([[-1., -1., -1., -1., -1.],
+               [ 1., -1.,  1., -1.,  1.],
+               [-1.,  1.,  1., -1.,  1.],
+               [ 1.,  1., -1., -1., -1.],
+               [-1., -1., -1.,  1.,  1.],
+               [ 1., -1.,  1.,  1., -1.],
+               [-1.,  1.,  1.,  1., -1.],
+               [ 1.,  1., -1.,  1.,  1.]])
+       
     """
     # Recognize letters and combinations
     A = [item for item in re.split('\-?\s?\+?', gen) if item]  # remove empty strings
@@ -144,7 +192,7 @@ def fracfact(gen):
     R2 = _grep(U, '-')
     
     # Fill in design with two level factorial design
-    H1 = 2*ff2n(len(I)) - 1
+    H1 = ff2n(len(I))
     H = np.zeros((H1.shape[0], len(C)))
     H[:, I] = H1
     

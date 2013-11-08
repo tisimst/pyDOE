@@ -27,23 +27,23 @@ def pbdesign(n):
     A 3-factor design::
     
         >>> pbdesign(3)
-        array([[ 1.,  1.,  1.],
-               [-1.,  1., -1.],
+        array([[-1., -1.,  1.],
                [ 1., -1., -1.],
-               [-1., -1.,  1.]])
+               [-1.,  1., -1.],
+               [ 1.,  1.,  1.]])
        
     A 5-factor design::
     
         >>> pbdesign(5)
-        array([[ 1.,  1.,  1.,  1.,  1.],
-               [-1.,  1., -1.,  1., -1.],
-               [ 1., -1., -1.,  1.,  1.],
-               [-1., -1.,  1.,  1., -1.],
-               [ 1.,  1.,  1., -1., -1.],
-               [-1.,  1., -1., -1.,  1.],
+        array([[-1., -1.,  1., -1.,  1.],
                [ 1., -1., -1., -1., -1.],
-               [-1., -1.,  1., -1.,  1.]])
-    
+               [-1.,  1., -1., -1.,  1.],
+               [ 1.,  1.,  1., -1., -1.],
+               [-1., -1.,  1.,  1., -1.],
+               [ 1., -1., -1.,  1.,  1.],
+               [-1.,  1., -1.,  1., -1.],
+               [ 1.,  1.,  1.,  1.,  1.]])
+       
     """
     assert n>0, 'Number of factors must be a positive integer'
     keep = int(n)
@@ -73,6 +73,9 @@ def pbdesign(n):
     for i in xrange(e):
         H = np.vstack((np.hstack((H, H)), np.hstack((H, -H))))
     
-    return H[:, 1:(keep + 1)]
+    # Reduce the size of the matrix as needed
+    H = H[:, 1:(keep + 1)]
+    
+    return np.flipud(H)
     
     
