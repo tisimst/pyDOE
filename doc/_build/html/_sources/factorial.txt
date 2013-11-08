@@ -54,13 +54,13 @@ factors to have two levels each, you simple tell it how many factors to
 create a design for::
 
     >>> ff2n(3)
-    array([[ 0.,  0.,  0.],
-           [ 1.,  0.,  0.],
-           [ 0.,  1.,  0.],
-           [ 1.,  1.,  0.],
-           [ 0.,  0.,  1.],
-           [ 1.,  0.,  1.],
-           [ 0.,  1.,  1.],
+    array([[-1., -1., -1.],
+           [ 1., -1., -1.],
+           [-1.,  1., -1.],
+           [ 1.,  1., -1.],
+           [-1., -1.,  1.],
+           [ 1., -1.,  1.],
+           [-1.,  1.,  1.],
            [ 1.,  1.,  1.]])
        
 .. index:: 2-Level Fractional Factorial
@@ -104,9 +104,9 @@ column is confounded with the interaction of the factors in the first two
 columns. The design ends up looking like this::
 
     >>> fracfact('a b ab')
-    array([[ 0.,  0.,  1.],
-           [ 1.,  0.,  0.],
-           [ 0.,  1.,  0.],
+    array([[-1., -1.,  1.],
+           [ 1., -1., -1.],
+           [-1.,  1., -1.],
            [ 1.,  1.,  1.]])
 
 Fractional factorial designs are usually specified using the notation 
@@ -120,13 +120,13 @@ fractional factorial and would be created using the following string
 generator::
 
     >>> fracfact('a b ab c ac bc abc')
-    array([[ 0.,  0.,  1.,  0.,  1.,  1.,  0.],
-           [ 1.,  0.,  0.,  0.,  0.,  1.,  1.],
-           [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],
-           [ 1.,  1.,  1.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],
-           [ 1.,  0.,  0.,  1.,  1.,  0.,  0.],
-           [ 0.,  1.,  0.,  1.,  0.,  1.,  0.],
+    array([[-1., -1.,  1., -1.,  1.,  1., -1.],
+           [ 1., -1., -1., -1., -1.,  1.,  1.],
+           [-1.,  1., -1., -1.,  1., -1.,  1.],
+           [ 1.,  1.,  1., -1., -1., -1., -1.],
+           [-1., -1.,  1.,  1., -1., -1.,  1.],
+           [ 1., -1., -1.,  1.,  1., -1., -1.],
+           [-1.,  1., -1.,  1., -1.,  1., -1.],
            [ 1.,  1.,  1.,  1.,  1.,  1.,  1.]])
 
 More sophisticated generator strings can be created using the "+" and 
@@ -134,43 +134,43 @@ More sophisticated generator strings can be created using the "+" and
 this::
 
     >>> fracfact('a b -ab')
-    array([[ 0.,  0.,  0.],
-           [ 1.,  0.,  1.],
-           [ 0.,  1.,  1.],
-           [ 1.,  1.,  0.]]) 
-
+    array([[-1., -1., -1.],
+           [ 1., -1.,  1.],
+           [-1.,  1.,  1.],
+           [ 1.,  1., -1.]])
+       
 In order to reduce confounding, we can utilize the ``fold`` function::
 
     >>> m = fracfact('a b ab')
     >>> fold(m)
-    array([[ 0.,  0.,  1.],
-           [ 1.,  0.,  0.],
-           [ 0.,  1.,  0.],
+    array([[-1., -1.,  1.],
+           [ 1., -1., -1.],
+           [-1.,  1., -1.],
            [ 1.,  1.,  1.],
-           [ 1.,  1.,  0.],
-           [ 0.,  1.,  1.],
-           [ 1.,  0.,  1.],
-           [ 0.,  0.,  0.]])
-
+           [ 1.,  1., -1.],
+           [-1.,  1.,  1.],
+           [ 1., -1.,  1.],
+           [-1., -1., -1.]])
+       
 Applying the fold to all columns in the design breaks the alias chains
 between every *main factor and two-factor interactions*. This means that
 we can then estimate *all the main effects clear of any two-factor 
 interactions*. Typically, when all columns are folded, this "upgrades"
 the resolution of the design.
 
-By default, ``fold`` applies the level swapping to all 
-columns, but we can fold specific columns, if desired, by supplying an 
-array to the keyword ``columns``::
+By default, ``fold`` applies the level swapping to all columns, but we can
+fold specific columns (first column = 0), if desired, by supplying an array 
+to the keyword ``columns``::
 
     >>> fold(m, columns=[2])
-    array([[ 0.,  0.,  1.],
-           [ 1.,  0.,  0.],
-           [ 0.,  1.,  0.],
+    array([[-1., -1.,  1.],
+           [ 1., -1., -1.],
+           [-1.,  1., -1.],
            [ 1.,  1.,  1.],
-           [ 0.,  0.,  0.],
-           [ 1.,  0.,  1.],
-           [ 0.,  1.,  1.],
-           [ 1.,  1.,  0.]])
+           [-1., -1., -1.],
+           [ 1., -1.,  1.],
+           [-1.,  1.,  1.],
+           [ 1.,  1., -1.]])
 
 .. note::
    Care should be taken to decide the appropriate alias structure for 
@@ -187,39 +187,35 @@ Another way to generate fractional-factorial designs is through the use
 of **Plackett-Burman** designs. These designs are unique in that the 
 number of trial conditions (rows) expands by multiples of four (e.g. 4,
 8, 12, etc.). The max number of columns allowed before a design increases
-the number of rows is always one less than the multiple of four.
+the number of rows is always one less than the next higher multiple of four.
 
-For example, I can use up to 3 factors in a design with 4 columns::
+For example, I can use up to 3 factors in a design with 4 rows::
 
-    >>> pbdesign(4)
-    array([[ 1.,  1.,  1.],
-           [ 0.,  1.,  0.],
-           [ 1.,  0.,  0.],
-           [ 0.,  0.,  1.]])
-
-But if I want to do four factors, the design needs to increase the number
+    >>> pbdesign(3)
+    array([[-1., -1.,  1.],
+           [ 1., -1., -1.],
+           [-1.,  1., -1.],
+           [ 1.,  1.,  1.]])
+       
+But if I want to do 4 factors, the design needs to increase the number
 of rows up to the next multiple of four (8 in this case)::
 
-    >>> pbdesign(8)
-    array([[ 1.,  1.,  1.,  1.,  1.,  1.,  1.],
-           [ 0.,  1.,  0.,  1.,  0.,  1.,  0.],
-           [ 1.,  0.,  0.,  1.,  1.,  0.,  0.],
-           [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],
-           [ 1.,  1.,  1.,  0.,  0.,  0.,  0.],
-           [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],
-           [ 1.,  0.,  0.,  0.,  0.,  1.,  1.],
-           [ 0.,  0.,  1.,  0.,  1.,  1.,  0.]])
+    >>> pbdesign(4)
+    array([[-1., -1.,  1., -1.],
+           [ 1., -1., -1., -1.],
+           [-1.,  1., -1., -1.],
+           [ 1.,  1.,  1., -1.],
+           [-1., -1.,  1.,  1.],
+           [ 1., -1., -1.,  1.],
+           [-1.,  1., -1.,  1.],
+           [ 1.,  1.,  1.,  1.]])
+       
+Thus, an 8-run Plackett-Burman design can handle up to (8 - 1) = 7 factors.
 
-So, an 8-run Plackett-Burman design can handle up to (8 - 1) or 7 factors.
+As a side note, It just so happens that the Plackett-Burman and 2^(7-4) 
+fractional factorial design are identical::
 
-It just so happens that the Plackett-Burman and 2^(7-4) fractional 
-factorial design are identical if we reverse the rows::
-
-    >>> import numpy as np
-    >>> pbd = pbdesign(8)
-    >>> pbd = np.flipud(pbd)  # reverse the rows here
-    >>> ffd = fracfact('a b ab c ac bc abc')
-    >>> np.all(pbd==ffd)
+    >>> np.all(pbdesign(7)==fracfact('a b ab c ac bc abc'))
     True
 
 .. index:: Factorial Designs Support

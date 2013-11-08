@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Factorial Designs &mdash; pyDOE 0.2.2 documentation</title>
+    <title>Factorial Designs &mdash; pyDOE 0.3 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.2',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="pyDOE 0.2.2 documentation" href="index.html" />
+    <link rel="top" title="pyDOE 0.3 documentation" href="index.html" />
     <link rel="next" title="Response Surface Designs" href="rsm.html" />
     <link rel="prev" title="pyDOE: The experimental design package for python" href="index.html" /> 
   </head>
@@ -148,13 +148,13 @@ items in the input array.</p>
 factors to have two levels each, you simple tell it how many factors to
 create a design for:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ff2n</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="go">array([[ 0.,  0.,  0.],</span>
-<span class="go">       [ 1.,  0.,  0.],</span>
-<span class="go">       [ 0.,  1.,  0.],</span>
-<span class="go">       [ 1.,  1.,  0.],</span>
-<span class="go">       [ 0.,  0.,  1.],</span>
-<span class="go">       [ 1.,  0.,  1.],</span>
-<span class="go">       [ 0.,  1.,  1.],</span>
+<span class="go">array([[-1., -1., -1.],</span>
+<span class="go">       [ 1., -1., -1.],</span>
+<span class="go">       [-1.,  1., -1.],</span>
+<span class="go">       [ 1.,  1., -1.],</span>
+<span class="go">       [-1., -1.,  1.],</span>
+<span class="go">       [ 1., -1.,  1.],</span>
+<span class="go">       [-1.,  1.,  1.],</span>
 <span class="go">       [ 1.,  1.,  1.]])</span>
 </pre></div>
 </div>
@@ -191,9 +191,9 @@ implicitly defined as <tt class="docutils literal"><span class="pre">&quot;c</sp
 column is confounded with the interaction of the factors in the first two
 columns. The design ends up looking like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b ab&#39;</span><span class="p">)</span>
-<span class="go">array([[ 0.,  0.,  1.],</span>
-<span class="go">       [ 1.,  0.,  0.],</span>
-<span class="go">       [ 0.,  1.,  0.],</span>
+<span class="go">array([[-1., -1.,  1.],</span>
+<span class="go">       [ 1., -1., -1.],</span>
+<span class="go">       [-1.,  1., -1.],</span>
 <span class="go">       [ 1.,  1.,  1.]])</span>
 </pre></div>
 </div>
@@ -207,13 +207,13 @@ side). Another common design is a Resolution III, 2^(7-4)
 fractional factorial and would be created using the following string
 generator:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b ab c ac bc abc&#39;</span><span class="p">)</span>
-<span class="go">array([[ 0.,  0.,  1.,  0.,  1.,  1.,  0.],</span>
-<span class="go">       [ 1.,  0.,  0.,  0.,  0.,  1.,  1.],</span>
-<span class="go">       [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],</span>
-<span class="go">       [ 1.,  1.,  1.,  0.,  0.,  0.,  0.],</span>
-<span class="go">       [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],</span>
-<span class="go">       [ 1.,  0.,  0.,  1.,  1.,  0.,  0.],</span>
-<span class="go">       [ 0.,  1.,  0.,  1.,  0.,  1.,  0.],</span>
+<span class="go">array([[-1., -1.,  1., -1.,  1.,  1., -1.],</span>
+<span class="go">       [ 1., -1., -1., -1., -1.,  1.,  1.],</span>
+<span class="go">       [-1.,  1., -1., -1.,  1., -1.,  1.],</span>
+<span class="go">       [ 1.,  1.,  1., -1., -1., -1., -1.],</span>
+<span class="go">       [-1., -1.,  1.,  1., -1., -1.,  1.],</span>
+<span class="go">       [ 1., -1., -1.,  1.,  1., -1., -1.],</span>
+<span class="go">       [-1.,  1., -1.,  1., -1.,  1., -1.],</span>
 <span class="go">       [ 1.,  1.,  1.,  1.,  1.,  1.,  1.]])</span>
 </pre></div>
 </div>
@@ -221,23 +221,23 @@ generator:</p>
 &#8220;-&#8221; operators. The &#8220;-&#8221; operator swaps the levels of that column like
 this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b -ab&#39;</span><span class="p">)</span>
-<span class="go">array([[ 0.,  0.,  0.],</span>
-<span class="go">       [ 1.,  0.,  1.],</span>
-<span class="go">       [ 0.,  1.,  1.],</span>
-<span class="go">       [ 1.,  1.,  0.]])</span>
+<span class="go">array([[-1., -1., -1.],</span>
+<span class="go">       [ 1., -1.,  1.],</span>
+<span class="go">       [-1.,  1.,  1.],</span>
+<span class="go">       [ 1.,  1., -1.]])</span>
 </pre></div>
 </div>
 <p>In order to reduce confounding, we can utilize the <tt class="docutils literal"><span class="pre">fold</span></tt> function:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b ab&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fold</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="go">array([[ 0.,  0.,  1.],</span>
-<span class="go">       [ 1.,  0.,  0.],</span>
-<span class="go">       [ 0.,  1.,  0.],</span>
+<span class="go">array([[-1., -1.,  1.],</span>
+<span class="go">       [ 1., -1., -1.],</span>
+<span class="go">       [-1.,  1., -1.],</span>
 <span class="go">       [ 1.,  1.,  1.],</span>
-<span class="go">       [ 1.,  1.,  0.],</span>
-<span class="go">       [ 0.,  1.,  1.],</span>
-<span class="go">       [ 1.,  0.,  1.],</span>
-<span class="go">       [ 0.,  0.,  0.]])</span>
+<span class="go">       [ 1.,  1., -1.],</span>
+<span class="go">       [-1.,  1.,  1.],</span>
+<span class="go">       [ 1., -1.,  1.],</span>
+<span class="go">       [-1., -1., -1.]])</span>
 </pre></div>
 </div>
 <p>Applying the fold to all columns in the design breaks the alias chains
@@ -245,18 +245,18 @@ between every <em>main factor and two-factor interactions</em>. This means that
 we can then estimate <em>all the main effects clear of any two-factor
 interactions</em>. Typically, when all columns are folded, this &#8220;upgrades&#8221;
 the resolution of the design.</p>
-<p>By default, <tt class="docutils literal"><span class="pre">fold</span></tt> applies the level swapping to all
-columns, but we can fold specific columns, if desired, by supplying an
-array to the keyword <tt class="docutils literal"><span class="pre">columns</span></tt>:</p>
+<p>By default, <tt class="docutils literal"><span class="pre">fold</span></tt> applies the level swapping to all columns, but we can
+fold specific columns (first column = 0), if desired, by supplying an array
+to the keyword <tt class="docutils literal"><span class="pre">columns</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fold</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="go">array([[ 0.,  0.,  1.],</span>
-<span class="go">       [ 1.,  0.,  0.],</span>
-<span class="go">       [ 0.,  1.,  0.],</span>
+<span class="go">array([[-1., -1.,  1.],</span>
+<span class="go">       [ 1., -1., -1.],</span>
+<span class="go">       [-1.,  1., -1.],</span>
 <span class="go">       [ 1.,  1.,  1.],</span>
-<span class="go">       [ 0.,  0.,  0.],</span>
-<span class="go">       [ 1.,  0.,  1.],</span>
-<span class="go">       [ 0.,  1.,  1.],</span>
-<span class="go">       [ 1.,  1.,  0.]])</span>
+<span class="go">       [-1., -1., -1.],</span>
+<span class="go">       [ 1., -1.,  1.],</span>
+<span class="go">       [-1.,  1.,  1.],</span>
+<span class="go">       [ 1.,  1., -1.]])</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -271,36 +271,32 @@ your design and the effects that folding has on it.</p>
 of <strong>Plackett-Burman</strong> designs. These designs are unique in that the
 number of trial conditions (rows) expands by multiples of four (e.g. 4,
 8, 12, etc.). The max number of columns allowed before a design increases
-the number of rows is always one less than the multiple of four.</p>
-<p>For example, I can use up to 3 factors in a design with 4 columns:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pbdesign</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="go">array([[ 1.,  1.,  1.],</span>
-<span class="go">       [ 0.,  1.,  0.],</span>
-<span class="go">       [ 1.,  0.,  0.],</span>
-<span class="go">       [ 0.,  0.,  1.]])</span>
+the number of rows is always one less than the next higher multiple of four.</p>
+<p>For example, I can use up to 3 factors in a design with 4 rows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pbdesign</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">array([[-1., -1.,  1.],</span>
+<span class="go">       [ 1., -1., -1.],</span>
+<span class="go">       [-1.,  1., -1.],</span>
+<span class="go">       [ 1.,  1.,  1.]])</span>
 </pre></div>
 </div>
-<p>But if I want to do four factors, the design needs to increase the number
+<p>But if I want to do 4 factors, the design needs to increase the number
 of rows up to the next multiple of four (8 in this case):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pbdesign</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="go">array([[ 1.,  1.,  1.,  1.,  1.,  1.,  1.],</span>
-<span class="go">       [ 0.,  1.,  0.,  1.,  0.,  1.,  0.],</span>
-<span class="go">       [ 1.,  0.,  0.,  1.,  1.,  0.,  0.],</span>
-<span class="go">       [ 0.,  0.,  1.,  1.,  0.,  0.,  1.],</span>
-<span class="go">       [ 1.,  1.,  1.,  0.,  0.,  0.,  0.],</span>
-<span class="go">       [ 0.,  1.,  0.,  0.,  1.,  0.,  1.],</span>
-<span class="go">       [ 1.,  0.,  0.,  0.,  0.,  1.,  1.],</span>
-<span class="go">       [ 0.,  0.,  1.,  0.,  1.,  1.,  0.]])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pbdesign</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">array([[-1., -1.,  1., -1.],</span>
+<span class="go">       [ 1., -1., -1., -1.],</span>
+<span class="go">       [-1.,  1., -1., -1.],</span>
+<span class="go">       [ 1.,  1.,  1., -1.],</span>
+<span class="go">       [-1., -1.,  1.,  1.],</span>
+<span class="go">       [ 1., -1., -1.,  1.],</span>
+<span class="go">       [-1.,  1., -1.,  1.],</span>
+<span class="go">       [ 1.,  1.,  1.,  1.]])</span>
 </pre></div>
 </div>
-<p>So, an 8-run Plackett-Burman design can handle up to (8 - 1) or 7 factors.</p>
-<p>It just so happens that the Plackett-Burman and 2^(7-4) fractional
-factorial design are identical if we reverse the rows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pbd</span> <span class="o">=</span> <span class="n">pbdesign</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pbd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">pbd</span><span class="p">)</span>  <span class="c"># reverse the rows here</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ffd</span> <span class="o">=</span> <span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b ab c ac bc abc&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">pbd</span><span class="o">==</span><span class="n">ffd</span><span class="p">)</span>
+<p>Thus, an 8-run Plackett-Burman design can handle up to (8 - 1) = 7 factors.</p>
+<p>As a side note, It just so happens that the Plackett-Burman and 2^(7-4)
+fractional factorial design are identical:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">pbdesign</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">==</span><span class="n">fracfact</span><span class="p">(</span><span class="s">&#39;a b ab c ac bc abc&#39;</span><span class="p">))</span>
 <span class="go">True</span>
 </pre></div>
 </div>
