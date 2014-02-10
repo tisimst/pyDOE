@@ -56,7 +56,7 @@ def star(n, alpha='faced', center=(1, 1)):
     
     # Create the actual matrix now.
     H = np.zeros((2*n, n))
-    for i in xrange(n):
+    for i in range(n):
         H[2*i:2*i+2, i] = [-1, 1]
     
     H *= a

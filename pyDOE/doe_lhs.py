@@ -114,12 +114,12 @@ def _lhsclassic(n, samples):
     a = cut[:samples]
     b = cut[1:samples + 1]
     rdpoints = np.zeros_like(u)
-    for j in xrange(n):
+    for j in range(n):
         rdpoints[:, j] = u[:, j]*(b-a) + a
     
     # Make the random pairings
     H = np.zeros_like(rdpoints)
-    for j in xrange(n):
+    for j in range(n):
         order = np.random.permutation(range(samples))
         H[:, j] = rdpoints[order, j]
     
@@ -139,7 +139,7 @@ def _lhscentered(n, samples):
     
     # Make the random pairings
     H = np.zeros_like(u)
-    for j in xrange(n):
+    for j in range(n):
         H[:, j] = np.random.permutation(_center)
     
     return H
@@ -150,7 +150,7 @@ def _lhsmaximin(n, samples, iterations, lhstype):
     maxdist = 0
     
     # Maximize the minimum distance between points
-    for i in xrange(iterations):
+    for i in range(iterations):
         if lhstype=='maximin':
             Hcandidate = _lhsclassic(n, samples)
         else:
@@ -169,7 +169,7 @@ def _lhscorrelate(n, samples, iterations):
     mincorr = np.inf
     
     # Minimize the components correlation coefficients
-    for i in xrange(iterations):
+    for i in range(iterations):
         # Generate a random LHS
         Hcandidate = _lhsclassic(n, samples)
         R = np.corrcoef(Hcandidate)
@@ -221,8 +221,8 @@ def _pdist(x):
         return []
     
     d = []
-    for i in xrange(n - 1):
-        for j in xrange(i + 1, n):
+    for i in range(n - 1):
+        for j in range(i + 1, n):
             d.append((sum((x[j, :] - x[i, :])**2))**0.5)
     
     return np.array(d)

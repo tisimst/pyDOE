@@ -84,10 +84,10 @@ def ccdesign(n, center=(4, 4), alpha='orthogonal', face='circumscribed'):
     try:
         nc = len(center)
     except:
-        raise TypeError, 'Invalid value for "center": {:}. Expected a 1-by-2 array.'.format(center)
+        raise TypeError('Invalid value for "center": {:}. Expected a 1-by-2 array.'.format(center))
     else:
         if nc!=2:
-            raise ValueError, 'Invalid number of values for "center" (expected 2, but got {:})'.format(nc)
+            raise ValueError('Invalid number of values for "center" (expected 2, but got {:})'.format(nc))
 
     # Orthogonal Design
     if alpha.lower() in ('orthogonal', 'o'):

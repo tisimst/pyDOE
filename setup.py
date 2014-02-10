@@ -7,7 +7,7 @@ def read(fname):
 
 setup(
     name='pyDOE',
-    version="0.3.1",
+    version="0.3.2",
     author='Abraham Lee',
     author_email='tisimst@gmail.com',
     description='Design of experiments for Python',

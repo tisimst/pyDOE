@@ -58,8 +58,8 @@ def bbdesign(n, center=None):
     nb_lines = (n*(n-1)/2)*H_fact.shape[0]
     H = repeat_center(n, nb_lines)
     
-    for i in xrange(n - 1):
-        for j in xrange(i + 1, n):
+    for i in range(n - 1):
+        for j in range(i + 1, n):
             Index = Index + 1
             H[max([0, (Index - 1)*H_fact.shape[0]]):Index*H_fact.shape[0], i] = H_fact[:, 0]
             H[max([0, (Index - 1)*H_fact.shape[0]]):Index*H_fact.shape[0], j] = H_fact[:, 1]

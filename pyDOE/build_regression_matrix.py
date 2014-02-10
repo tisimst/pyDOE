@@ -39,7 +39,7 @@ def build_regression_matrix(H, model, build=None):
     
     # Collect the list of monomials
     Monom_Index = []
-    for i in xrange(len(ListOfTokens)):
+    for i in range(len(ListOfTokens)):
         if build[i]:
             Monom_Index += [grep(ListOfTokens, 'x' + str(0)*(size_index - \
             len(str(i))) + str(i))]
@@ -51,8 +51,8 @@ def build_regression_matrix(H, model, build=None):
         nb_var = H.shape[0]  # vector "mode": the number of vars is equal to the number of lines of H
         VectorMode = True
         
-        for i in xrange(nb_var):
-            for j in xrange(ListOfTokens.shape[0]):
+        for i in range(nb_var):
+            for j in range(ListOfTokens.shape[0]):
                 ListOfTokens[j] = ListOfTokens[j].replace(
                     'x' + str(0)*(size_index - len(str(i))) + str(i),
                     'H(' + str(i) + ')')
@@ -60,8 +60,8 @@ def build_regression_matrix(H, model, build=None):
         nb_var = H.shape[0]  # matrix "mode": the number of vars is equal to the number of columns of H
         VectorMode = False
         
-        for i in xrange(nb_var):
-            for j in xrange(ListOfTokens.shape[0]):
+        for i in range(nb_var):
+            for j in range(ListOfTokens.shape[0]):
                 ListOfTokens[j] = ListOfTokens[j].replace(
                     'x' + str(0)*(size_index - len(str(i))) + str(i),
                     'H[i,' + str(i) + ')')
@@ -69,12 +69,12 @@ def build_regression_matrix(H, model, build=None):
     # Now build the regression matrix
     if VectorMode:
         R = np.zeros((len(ListOfTokens), 1))
-        for j in xrange(len(ListOfTokens)):
+        for j in range(len(ListOfTokens)):
             R[j, 0] = eval(ListOfTokens[j])
     else:
         R = np.zeros((H.shape[0], len(ListOfTokens)))
-        for i in xrange(H.shape[0]):
-            for j in xrange(len(ListOfTokens)):
+        for i in range(H.shape[0]):
+            for j in range(len(ListOfTokens)):
                 R[i, j] = eval(ListOfTokens[j])
     
     return R
