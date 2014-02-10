@@ -99,18 +99,18 @@ def ccdesign(n, center=(4, 4), alpha='orthogonal', face='circumscribed'):
     
     # Inscribed CCD
     if face.lower() in ('inscribed', 'cci'):
-        H1 = 2*ff2n(n) - 1
+        H1 = ff2n(n)
         H1 = H1/a  # Scale down the factorial points
         H2, a = star(n)
     
     # Faced CCD
     if face.lower() in ('faced', 'ccf'):
         H2, a = star(n)  # Value of alpha is always 1 in Faced CCD
-        H1 = 2*ff2n(n) - 1
+        H1 = ff2n(n)
     
     # Circumscribed CCD
     if face.lower() in ('circumscribed', 'ccc'):
-        H1 = 2*ff2n(n) - 1
+        H1 = ff2n(n)
     
     C1 = repeat_center(n, center[0])
     C2 = repeat_center(n, center[1])
