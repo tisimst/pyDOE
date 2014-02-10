@@ -48,7 +48,7 @@ def bbdesign(n, center=None):
     assert n>=3, 'Number of variables must be at least 3'
     
     # First, compute a factorial DOE with 2 parameters
-    H_fact = 2*ff2n(2) - 1
+    H_fact = ff2n(2)
     # Now we populate the real DOE with this DOE
     
     # We made a factorial design on each pair of dimensions
