@@ -8,7 +8,7 @@ Copyright: 2013
 
 """
 __author__ = 'Abraham Lee'
-__version__ = '0.3.2'
+__version__ = '0.3.3'
 
 from doe_box_behnken import *
 from doe_composite import *
