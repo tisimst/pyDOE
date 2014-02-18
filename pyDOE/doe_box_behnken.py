@@ -1,6 +1,8 @@
+# from __future__ import absolute_import
+
 import numpy as np
-from doe_factorial import ff2n
-from doe_repeat_center import repeat_center
+from pyDOE.doe_factorial import ff2n
+from pyDOE.doe_repeat_center import repeat_center
 
 __all__ = ['bbdesign']
 

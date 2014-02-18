@@ -52,7 +52,7 @@ def star(n, alpha='faced', center=(1, 1)):
         nc = 2**n  # number of factorial points
         a = nc**(0.25)  # value of alpha in rotatable design
     else:
-        raise ValueError, 'Invalid value for "alpha": {:}'.format(alpha)
+        raise ValueError('Invalid value for "alpha": {:}'.format(alpha))
     
     # Create the actual matrix now.
     H = np.zeros((2*n, n))
