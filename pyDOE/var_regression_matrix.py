@@ -29,7 +29,7 @@ def var_regression_matrix(H, x, model, sigma=1):
         x = x.T
     
     if np.rank(H)<(np.dot(H.T, H)).shape[0]:
-        raise ValueError, "model and DOE don't suit together"
+        raise ValueError("model and DOE don't suit together")
     
     x_mod = build_regression_matrix(x, model)
     var = sigma**2*np.dot(np.dot(x_mod.T, np.linalg.inv(np.dot(H.T, H))), x_mod)
