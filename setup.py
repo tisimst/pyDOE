@@ -6,12 +6,12 @@ def read(fname):
 
 setup(
     name='pyDOE',
-    version="0.3.6",
+    version="0.3.7",
     author='Abraham Lee',
     author_email='tisimst@gmail.com',
     description='Design of experiments for Python',
     url='https://github.com/tisimst/pyDOE',
-    license='BSD License',
+    license='BSD License (3-Clause)',
     long_description=read('README'),
     packages=['pyDOE'],
     install_requires=['numpy', 'scipy'],

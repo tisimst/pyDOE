@@ -151,12 +151,28 @@ Contact
 Any feedback, questions, bug reports, or success stores should
 be sent to the `author`_. I'd love to hear from you!
 
+Credits
+=======
+
+This code was originally published by the following individuals for use with
+Scilab:
+    
+- Copyright (C) 2012 - 2013 - Michael Baudin
+- Copyright (C) 2012 - Maria Christopoulou
+- Copyright (C) 2010 - 2011 - INRIA - Michael Baudin
+- Copyright (C) 2009 - Yann Collette
+- Copyright (C) 2009 - CEA - Jean-Marc Martinez
+
+- Website: forge.scilab.org/index.php/p/scidoe/sourcetree/master/macros
+
+Much thanks goes to these individuals.
+
 License
 =======
 
 This package is provided under two licenses:
 
-1. The *BSD License*
+1. The *BSD License* (3-Clause)
 2. Any other that the author approves (just ask!)
 
 References
