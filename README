@@ -37,8 +37,8 @@ number of factors:
 What's New
 ==========
 
-In this release, the original authors (for Scilab) have been given the credit 
-they deserve.
+In this release, an incorrect indexing variable in the internal LHS function
+``_pdist`` has been corrected so point-distances are now calculated accurately.
 
 Requirements
 ============
@@ -82,6 +82,11 @@ Scilab:
 - Website: forge.scilab.org/index.php/p/scidoe/sourcetree/master/macros
 
 Much thanks goes to these individuals.
+
+And thanks goes out to the following for finding and offering solutions for
+bugs:
+
+- Ashmeet Singh
 
 License
 =======

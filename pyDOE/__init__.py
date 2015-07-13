@@ -20,7 +20,7 @@ Abraham Lee.
 # from __future__ import absolute_import
 
 __author__ = 'Abraham Lee'
-__version__ = '0.3.7'
+__version__ = '0.3.8'
 
 from pyDOE.doe_box_behnken import *
 from pyDOE.doe_composite import *
