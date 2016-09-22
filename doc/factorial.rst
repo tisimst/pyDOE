@@ -176,6 +176,27 @@ to the keyword ``columns``::
    Care should be taken to decide the appropriate alias structure for 
    your design and the effects that folding has on it.
 
+2-Level Fractional-Factorial specified by resolution (``fracfact_by_res``)
+--------------------------------------------------------------------------
+
+This function constructs a minimal design at given resolution. It does so
+by constructing a generator string with a minimal number of base factors
+and passes it to ``fracfact``. This approach favors convenience over
+fine-grained control over which factors that are confounded.
+
+To construct a 6-factor, resolution III-design, ``fractfact_by_res``
+is used like this::
+
+   >>> fracfact_by_res(6, 3)
+       array([[-1., -1., -1.,  1.,  1.,  1.],
+              [ 1., -1., -1., -1., -1.,  1.],
+              [-1.,  1., -1., -1.,  1., -1.],
+              [ 1.,  1., -1.,  1., -1., -1.],
+              [-1., -1.,  1.,  1., -1., -1.],
+              [ 1., -1.,  1., -1.,  1., -1.],
+              [-1.,  1.,  1., -1., -1.,  1.],
+              [ 1.,  1.,  1.,  1.,  1.,  1.]])
+
 .. index:: Plackett-Burman
 
 .. _plackett_burman:
