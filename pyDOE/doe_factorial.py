@@ -14,9 +14,14 @@ Abraham Lee.
 """
 
 import re
-import numpy as np
+import string
+from itertools import dropwhile, combinations, islice
 
-__all__ = ['np', 'fullfact', 'ff2n', 'fracfact']
+import numpy as np
+from scipy.special import binom
+
+
+__all__ = ['np', 'fullfact', 'ff2n', 'fracfact', 'fracfact_by_res']
 
 def fullfact(levels):
     """
@@ -229,6 +234,100 @@ def fracfact(gen):
         
     # Return the fractional factorial design
     return H
+
+
+def fracfact_by_res(n, res):
+    """
+    Create a 2-level fractional factorial design with `n` factors
+    and resolution `res`.
+
+    Parameters
+    ----------
+    n : int
+        The number of factors in the design.
+    res : int
+        Desired design resolution
+
+    Returns
+    -------
+    H : 2d-array
+        A m-by-`n` matrix, the fractional factorial design. m is the
+        minimal amount of rows possible for creating a fractional
+        factorial design matrix at resolution `res`
+
+    Raises
+    ------
+    ValueError
+        If the current design is not possible to construct.
+
+    Notes
+    -----
+    The resolution of a design is defined as the length of the shortest
+    word in the defining relation. The resolution describes the level of
+    confounding between factors and interaction effects, where higher
+    resolution indicates lower degree of confounding.
+
+    For example, consider the 2^4-1-design defined by
+
+        gen = "a b c ab"
+
+    The factor "d" is defined by "ab" with defining relation I="abd", where
+    I is the unit vector. In this simple example the shortest word is "abd"
+    meaning that this is a resolution III-design.
+
+    In practice resolution III-, IV- and V-designs are most commonly applied.
+
+    * III: Main effects may be confounded with two-factor interactions.
+    * IV: Main effects are unconfounded by two-factor interactions, but
+          two-factor interactions may be confounded with each other.
+    * V: Main effects unconfounded with up to four-factor interactions,
+         two-factor interactions unconfounded with up to three-factor
+         interactions. Three-factor interactions may be confounded with
+         each other.
+
+    Examples
+    --------
+    ::
+        >>> fracfact_by_res(6, 3)
+        array([[-1., -1., -1.,  1.,  1.,  1.],
+               [ 1., -1., -1., -1., -1.,  1.],
+               [-1.,  1., -1., -1.,  1., -1.],
+               [ 1.,  1., -1.,  1., -1., -1.],
+               [-1., -1.,  1.,  1., -1., -1.],
+               [ 1., -1.,  1., -1.,  1., -1.],
+               [-1.,  1.,  1., -1., -1.,  1.],
+               [ 1.,  1.,  1.,  1.,  1.,  1.]])
+
+        >>> fracfact_by_res(5, 5)
+        Traceback (most recent call last):
+        ...
+        ValueError: design not possible
+    """
+    # Determine minimum required number of base-factors.
+    min_fac = next(dropwhile(lambda n_: _n_fac_at_res(n_, res) < n,
+                             range(res - 1, n)), None)
+
+    if min_fac is None:
+        raise ValueError('design not possible')
+    elif min_fac > len(string.ascii_lowercase):
+        # This check needs to be done to make sure that the number
+        # of available are enough since `fracfact` parses design generator
+        # characters. In practice, this is highly theoretical and it is
+        # much more likely to run into memory-issues.
+        raise ValueError('design requires too many base-factors.')
+
+    # Get base factors.
+    factors = list(string.ascii_lowercase[:min_fac])
+
+    # Fill out with factor combinations until `n` factors.
+    factor_combs = (''.join(c) for r in range(res - 1, len(factors))
+                    for c in combinations(factors, r))
+    extra_factors = list(islice(factor_combs, n - len(factors)))
+
+    # Concatenate `gen` string for `fracfact`.
+    gen = ' '.join(factors + extra_factors)
+    return fracfact(gen)
+
     
 def _grep(haystack, needle):
     try:
@@ -241,3 +340,9 @@ def _grep(haystack, needle):
             if needle in item:
                 locs += [idx]
         return locs
+
+def _n_fac_at_res(n, res):
+    """ Calculate number of possible factors for fractional factorial
+    design with `n` base factors at resolution `res`.
+    """
+    return sum(binom(n, r) for r in range(res - 1, n)) + n
