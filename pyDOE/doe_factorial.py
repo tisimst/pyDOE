@@ -20,7 +20,8 @@ import re
 import string
 import numpy as np
 
-__all__ = ['np', 'fullfact', 'ff2n', 'fracfact']
+__all__ = ['np', 'fullfact', 'ff2n', 'fracfact', 'fracfact_opt',
+    'fracfact_aliasing', 'alias_vector_indices']
 
 def fullfact(levels):
     """
@@ -249,7 +250,7 @@ def _grep(haystack, needle):
 ################################################################################
 
 
-def fracfact_opt(n_factors, n_erased) :
+def fracfact_opt(n_factors, n_erased, max_attempts=0) :
     """
     Find the optimal generator string for a 2-level fractional-factorial design
     with the specified number of factors and erased factors.
@@ -260,6 +261,12 @@ def fracfact_opt(n_factors, n_erased) :
         The number of factors in the full factorial design
     n_erased : int
         The number of factors to "remove" to create the fractional design
+    max_attempts : int
+        The design is searched by exhaustive search, with the most "promising"
+        combinations attempted first. For large designs it might be unfeasible
+        to attempt all combinations.
+        Posite values give the number of models to attemps. Zero or negative
+        values indicate all combinations should be attempted.
 
     Returns
     -------
@@ -268,16 +275,12 @@ def fracfact_opt(n_factors, n_erased) :
         design, where k=n_factors and p=n_erased. The design disallows aliasing
         of main factors, and minimizes aliasing of low-order interactions.
     alias_map : list of str
-        The map of aliases that the design inflicts. Each string in the list is
-        a set of factors and interactions that are aliased among themselves, in
-        the format a = bcd = def etc. If there is no aliasing (n_erased=0) the
-        map simply lists all factors and interactions.
+        The map of aliases that the design inflicts.
+        More details in fracfact_aliasing().
     alias_vector : 1d numpy.array
-        The vector with the cost of the design in term of aliasings. Each cell
-        in the array counts the number of aliasing between factors/interactions
-        of size i and of size j, as given by alias_vector_indices().
+        The vector with the cost of the design in term of aliasings.
+        More details in fracfact_aliasing().
     """
-def fracfact_opt(n_factors, n_erased) :
     def n_comb(n, k):
         if k<=0 or n<=0 or k>n: return 0
         return math.factorial(n) / (math.factorial(k) * math.factorial(n-k))
@@ -288,42 +291,74 @@ def fracfact_opt(n_factors, n_erased) :
     if n_erased<0:
         raise ValueError('Number of erased factors must be non-negative')
     n_main_factors = n_factors-n_erased
-    n_aliases = sum(( n_comb(n_main_factors, n) for n in range(2, n_main_factors+1) ))
+    n_aliases = sum(( n_comb(n_main_factors, n)
+                      for n in range(2, n_main_factors+1) ))
     if n_erased>n_comb(n_aliases, n_erased):
         raise ValueError('Too many erased factors to create aliasing')
     all_names = string.ascii_lowercase
     factors = range(n_factors)
     main_factors = range(n_main_factors)
     main_design = ' '.join([ all_names[f] for f in main_factors ])
-    aliases = itertools.chain.from_iterable(( itertools.combinations(main_factors, n) for n in range(2, n_main_factors+1) ))
+    aliases = itertools.chain.from_iterable((
+            itertools.combinations(main_factors, n)
+            for n in range(2, n_main_factors+1) ))
     aliases = sorted(list(aliases), key=lambda a : (len(a), a), reverse=True)
     best_design = None
     best_map = []
     best_vector = np.repeat(n_factors, n_factors)
     design_shape = (2**n_main_factors, n_factors)
-    for aliasing in itertools.combinations(aliases, n_erased):
-        aliasing_design = ' '.join([ ''.join([ all_names[f] for f in a ]) for a in aliasing ])
+    all_combinations = itertools.combinations(aliases, n_erased)
+    all_combinations = (all_combinations if max_attempts<=0 else
+            itertools.islice(all_combinations, 0, max_attempts))
+    for aliasing in all_combinations :
+        aliasing_design = ' '.join([
+                ''.join([ all_names[f] for f in a ]) for a in aliasing ])
         complete_design = main_design+' '+aliasing_design
-        # print(complete_design)
         design = fracfact(complete_design)
         assert design.shape == design_shape
         alias_map, alias_vector = fracfact_aliasing(design)
-        # print(_)
-        # print(alias_vector)
         if list(alias_vector) < list(best_vector):
             best_design = complete_design
             best_map = alias_map
             best_vector = alias_vector
-            # print('Best design so far:', complete_design, 'with vector:', list(best_vector))
     return best_design, best_map, best_vector
 
 def fracfact_aliasing(design):
+    """
+    Find the aliasings in a design, given the contrasts.
+
+    Parameters
+    ----------
+    design : numpy 2d array
+        A design like those returned by fracfact()
+
+    Returns
+    -------
+    alias_map : list of str
+        The map of aliases that the design inflicts. Each string in the list is
+        a set of factors and interactions that are aliased among themselves, in
+        the format a = bcd = def etc. If there is no aliasing (n_erased=0) the
+        map simply lists all factors and interactions.
+    alias_vector : 1d numpy.array
+        The vector with the cost of the design in term of aliasings. Each cell
+        in the array counts the number of aliasing between factors/interactions
+        of size i and of size j, as given by alias_vector_indices().
+
+        The alias cost vector can be turned into a more explicit upper
+        triangular cost matrix with the idiom:
+        alias_matrix = np.zeros((n_factors, n_factors,))
+        alias_matrix[alias_vector_indices(n_factors)] = alias_vector
+
+        The entry in alias_matrix[i,j] (i<=j) shows how many aliasings where
+        created among i-th order interactions and j-th order interactions.
+    """
     n_rounds, n_factors = design.shape
     if n_factors > 20:
         raise ValueError('Design too big, use 20 factors or less')
     all_names = string.ascii_lowercase
     factors = range(n_factors)
-    all_combinations = itertools.chain.from_iterable(( itertools.combinations(factors, n) for n in range(1, n_factors+1) ))
+    all_combinations = itertools.chain.from_iterable((
+            itertools.combinations(factors, n) for n in range(1, n_factors+1) ))
     aliases = {}
     for combination in all_combinations:
         contrast = np.prod(design[:,combination], axis=1)
@@ -333,13 +368,13 @@ def fracfact_aliasing(design):
     aliases_list = []
     for alias in aliases.values():
         aliases_list.append(sorted(alias, key=lambda a : (len(a), a)))
-    aliases_list = sorted(aliases_list, key=lambda list : ([len(a) for a in list], list))
+    aliases_list = sorted(aliases_list,
+            key=lambda list : ([len(a) for a in list], list))
     aliases_readable = []
     alias_matrix = np.zeros((n_factors, n_factors, ))
-    # print(aliases_list)
-    # print([ len(a) for a in aliases_list ])
     for alias in aliases_list:
-        alias_readable = ' = '.join([ ''.join([ all_names[f] for f in a ]) for a in alias ])
+        alias_readable = ' = '.join([
+                ''.join([ all_names[f] for f in a ]) for a in alias ])
         aliases_readable.append(alias_readable)
         for sizes in itertools.combinations([ len(a) for a in alias], 2):
             assert sizes[0]>=0 and sizes[1]>=0
@@ -348,16 +383,28 @@ def fracfact_aliasing(design):
     alias_vector = alias_matrix[alias_vector_indices(n_factors)]
     return aliases_readable, alias_vector
 
-def design_frac(n_factors, n_erase):
-    design, alias_map, alias_vector = fracfact_opt(n_factors, n_erase)
-    alias_matrix = np.zeros((n_factors, n_factors,))
-    alias_matrix[alias_vector_indices(n_factors)] = alias_vector
-    return design, alias_map, alias_matrix
 
 def alias_vector_indices(n_factors):
+    """
+    Find the indexes to convert the alias_vector into a square matrix and
+    vice-versa.
+
+    Parameters
+    ----------
+    n_factors : int
+        The number of factors in the full factorial design
+
+    Returns
+    -------
+    rows : 1d numpy array
+    cols : 1d numpy.array
+        Rows and columns of the indices of the upper triangular square matrix
+        with n_factor rows/columns. This function returns a different indice
+        order than numpy.triu_indices, as it puts the indices representing the
+        most serious aliasings first, to help in the optimization procedure.
+    """
     if n_factors > 20:
         raise ValueError('Design too big, use 20 factors or less')
-    n_factors = 6
     indices = list(itertools.combinations_with_replacement(range(n_factors), 2))
     indices = sorted(indices, key=lambda i: max(i))
     rows = np.asarray([ i[0] for i in indices ])
