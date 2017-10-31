@@ -15,6 +15,7 @@ Abraham Lee.
 
 import numpy as np
 from math import factorial
+from scipy import spatial
 
 __all__ = ['lhs']
 
@@ -235,10 +236,11 @@ def _pdist(x):
     if m<2:
         return []
     
-    d = []
-    for i in range(m - 1):
-        for j in range(i + 1, m):
-            d.append((sum((x[j, :] - x[i, :])**2))**0.5)
+    d = spatial.distance.pdist(x, 'seuclidean')
+    #d = []
+    #for i in range(m - 1):
+    #    for j in range(i + 1, m):
+    #        d.append((sum((x[j, :] - x[i, :])**2))**0.5)
     
     return np.array(d)
 
