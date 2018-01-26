@@ -12,7 +12,7 @@ setup(
     description='Design of experiments for Python',
     url='https://github.com/clicumu/pyDOE2',
     license='BSD License (3-Clause)',
-    long_description=read('README.rst.rst'),
+    long_description=read('README.md'),
     packages=['pyDOE2'],
     install_requires=['numpy', 'scipy'],
     keywords=[
