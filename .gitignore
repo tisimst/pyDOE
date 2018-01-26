@@ -4,3 +4,4 @@ dist
 build
 MANIFEST
 *.egg-info
+.idea

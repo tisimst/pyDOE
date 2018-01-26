@@ -1,8 +1,8 @@
 =====================================================
-``pyDOE``: The experimental design package for python
+``pyDOE2``: The experimental design package for python
 =====================================================
 
-The ``pyDOE`` package is designed to help the 
+The ``pyDOE`` package is designed to help the
 **scientist, engineer, statistician,** etc., to construct appropriate 
 **experimental designs**.
 
