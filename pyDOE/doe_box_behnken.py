@@ -70,7 +70,7 @@ def bbdesign(n, center=None):
     # - So, we created a factorial design with two factors
     # - Make two loops
     Index = 0
-    nb_lines = (n*(n-1)/2)*H_fact.shape[0]
+    nb_lines = (n*(n-1)//2)*H_fact.shape[0]
     H = repeat_center(n, nb_lines)
     
     for i in range(n - 1):
