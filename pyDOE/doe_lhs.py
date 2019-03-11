@@ -187,7 +187,7 @@ def _lhscorrelate(n, samples, iterations):
     for i in range(iterations):
         # Generate a random LHS
         Hcandidate = _lhsclassic(n, samples)
-        R = np.corrcoef(Hcandidate)
+        R = np.corrcoef(Hcandidate.T)
         if np.max(np.abs(R[R!=1]))<mincorr:
             mincorr = np.max(np.abs(R-np.eye(R.shape[0])))
             print('new candidate solution found with max,abs corrcoef = {}'.format(mincorr))
