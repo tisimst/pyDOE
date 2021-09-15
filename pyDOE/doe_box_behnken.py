@@ -6,10 +6,10 @@ Scilab:
     Copyright (C) 2010 - 2011 - INRIA - Michael Baudin
     Copyright (C) 2009 - Yann Collette
     Copyright (C) 2009 - CEA - Jean-Marc Martinez
-    
+
     website: forge.scilab.org/index.php/p/scidoe/sourcetree/master/macros
 
-Much thanks goes to these individuals. It has been converted to Python by 
+Much thanks goes to these individuals. It has been converted to Python by
 Abraham Lee.
 """
 
@@ -22,26 +22,26 @@ __all__ = ['bbdesign']
 def bbdesign(n, center=None):
     """
     Create a Box-Behnken design
-    
+
     Parameters
     ----------
     n : int
         The number of factors in the design
-    
+
     Optional
     --------
     center : int
         The number of center points to include (default = 1).
-    
+
     Returns
     -------
     mat : 2d-array
         The design matrix
-    
+
     Example
     -------
     ::
-    
+
         >>> bbdesign(3)
         array([[-1., -1.,  0.],
                [ 1., -1.,  0.],
@@ -58,21 +58,22 @@ def bbdesign(n, center=None):
                [ 0.,  0.,  0.],
                [ 0.,  0.,  0.],
                [ 0.,  0.,  0.]])
-        
+
     """
     assert n>=3, 'Number of variables must be at least 3'
-    
+
     # First, compute a factorial DOE with 2 parameters
     H_fact = ff2n(2)
     # Now we populate the real DOE with this DOE
-    
+
     # We made a factorial design on each pair of dimensions
     # - So, we created a factorial design with two factors
     # - Make two loops
     Index = 0
     nb_lines = (n*(n-1)/2)*H_fact.shape[0]
+    nb_lines = int(nb_lines)
     H = repeat_center(n, nb_lines)
-    
+
     for i in range(n - 1):
         for j in range(i + 1, n):
             Index = Index + 1
@@ -85,7 +86,7 @@ def bbdesign(n, center=None):
             center = points[n]
         else:
             center = n
-        
+
     H = np.c_[H.T, repeat_center(n, center).T].T
-    
+
     return H
