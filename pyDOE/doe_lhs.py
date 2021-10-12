@@ -14,6 +14,7 @@ Abraham Lee.
 """
 
 import numpy as np
+from scipy.spatial import distance
 from math import factorial
 
 __all__ = ['lhs']
@@ -235,10 +236,8 @@ def _pdist(x):
     if m<2:
         return []
     
-    d = []
-    for i in range(m - 1):
-        for j in range(i + 1, m):
-            d.append((sum((x[j, :] - x[i, :])**2))**0.5)
+    distances = distance.cdist(x,x, 'euclidean')
+    d = distances[np.triu_indices(n, k =1)]
     
     return np.array(d)
 
